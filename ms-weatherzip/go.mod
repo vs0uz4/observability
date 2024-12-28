@@ -1,4 +1,4 @@
-module github.com/vs0uz4/weatherzip
+module github.com/vs0uz4/observability/ms-weatherzip
 
 go 1.23.3
 
