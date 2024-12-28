@@ -3,8 +3,8 @@ package webserver
 import (
 	"net/http"
 
-	"github.com/vs0uz4/weatherzip/internal/infra/web/webserver/middleware"
-	"github.com/vs0uz4/weatherzip/internal/service"
+	"github.com/vs0uz4/observability/ms-weatherzip/internal/infra/web/webserver/middleware"
+	"github.com/vs0uz4/observability/ms-weatherzip/internal/service"
 
 	"github.com/go-chi/chi/v5"
 )

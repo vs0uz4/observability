@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/vs0uz4/weatherzip/internal/domain"
+	"github.com/vs0uz4/observability/ms-weatherzip/internal/domain"
 )
 
 func TestMockHTTPClientDo(t *testing.T) {

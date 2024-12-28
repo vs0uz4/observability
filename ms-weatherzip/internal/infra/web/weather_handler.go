@@ -5,9 +5,9 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/vs0uz4/weatherzip/internal/domain"
-	"github.com/vs0uz4/weatherzip/internal/infra/web/webserver/middleware"
-	"github.com/vs0uz4/weatherzip/internal/usecase/contract"
+	"github.com/vs0uz4/observability/ms-weatherzip/internal/domain"
+	"github.com/vs0uz4/observability/ms-weatherzip/internal/infra/web/webserver/middleware"
+	"github.com/vs0uz4/observability/ms-weatherzip/internal/usecase/contract"
 
 	"github.com/go-chi/chi/v5"
 )

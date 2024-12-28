@@ -4,7 +4,7 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/vs0uz4/weatherzip/internal/domain"
+	"github.com/vs0uz4/observability/ms-weatherzip/internal/domain"
 )
 
 func TestMockWeatherByCepUsecase(t *testing.T) {

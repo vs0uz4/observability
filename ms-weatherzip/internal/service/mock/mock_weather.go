@@ -1,6 +1,6 @@
 package mock
 
-import "github.com/vs0uz4/weatherzip/internal/domain"
+import "github.com/vs0uz4/observability/ms-weatherzip/internal/domain"
 
 type MockWeatherService struct {
 	GetWeatherFunc func(string) (domain.WeatherResponse, error)

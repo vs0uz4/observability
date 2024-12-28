@@ -4,7 +4,7 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/vs0uz4/weatherzip/internal/infra/web/health"
+	"github.com/vs0uz4/observability/ms-weatherzip/internal/infra/web/health"
 
 	"github.com/stretchr/testify/assert"
 )

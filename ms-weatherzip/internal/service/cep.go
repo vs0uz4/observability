@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/vs0uz4/weatherzip/internal/domain"
-	"github.com/vs0uz4/weatherzip/internal/service/contract"
+	"github.com/vs0uz4/observability/ms-weatherzip/internal/domain"
+	"github.com/vs0uz4/observability/ms-weatherzip/internal/service/contract"
 )
 
 var _ contract.CepService = (*CepService)(nil)

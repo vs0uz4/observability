@@ -3,8 +3,8 @@ package usecase
 import (
 	"time"
 
-	"github.com/vs0uz4/weatherzip/internal/infra/web/health"
-	"github.com/vs0uz4/weatherzip/internal/service"
+	"github.com/vs0uz4/observability/ms-weatherzip/internal/infra/web/health"
+	"github.com/vs0uz4/observability/ms-weatherzip/internal/service"
 )
 
 type HealthCheckUseCase interface {

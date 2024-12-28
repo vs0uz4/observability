@@ -4,8 +4,8 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/vs0uz4/weatherzip/internal/service"
-	"github.com/vs0uz4/weatherzip/internal/service/mock"
+	"github.com/vs0uz4/observability/ms-weatherzip/internal/service"
+	"github.com/vs0uz4/observability/ms-weatherzip/internal/service/mock"
 
 	"github.com/stretchr/testify/assert"
 )

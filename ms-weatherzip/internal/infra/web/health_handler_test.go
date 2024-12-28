@@ -6,10 +6,10 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/vs0uz4/weatherzip/internal/infra/web/health"
-	"github.com/vs0uz4/weatherzip/internal/service"
-	"github.com/vs0uz4/weatherzip/internal/usecase"
-	"github.com/vs0uz4/weatherzip/internal/usecase/mock"
+	"github.com/vs0uz4/observability/ms-weatherzip/internal/infra/web/health"
+	"github.com/vs0uz4/observability/ms-weatherzip/internal/service"
+	"github.com/vs0uz4/observability/ms-weatherzip/internal/usecase"
+	"github.com/vs0uz4/observability/ms-weatherzip/internal/usecase/mock"
 
 	"github.com/stretchr/testify/assert"
 )

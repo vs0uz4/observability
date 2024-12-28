@@ -4,11 +4,11 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/vs0uz4/weatherzip/config"
-	"github.com/vs0uz4/weatherzip/internal/infra/web"
-	"github.com/vs0uz4/weatherzip/internal/infra/web/webserver"
-	"github.com/vs0uz4/weatherzip/internal/service"
-	"github.com/vs0uz4/weatherzip/internal/usecase"
+	"github.com/vs0uz4/observability/ms-weatherzip/config"
+	"github.com/vs0uz4/observability/ms-weatherzip/internal/infra/web"
+	"github.com/vs0uz4/observability/ms-weatherzip/internal/infra/web/webserver"
+	"github.com/vs0uz4/observability/ms-weatherzip/internal/service"
+	"github.com/vs0uz4/observability/ms-weatherzip/internal/usecase"
 )
 
 func main() {
