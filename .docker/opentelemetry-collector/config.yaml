@@ -1,0 +1,37 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
+  zipkin:
+    endpoint: 0.0.0.0:9411
+
+exporters:
+  debug:
+    verbosity: detailed
+  otlp:
+    endpoint: jaeger-aio:4317
+    tls:
+      insecure: true
+  zipkin:
+    endpoint: "http://zipkin:9411/api/v2/spans"
+
+processors:
+  batch:
+
+extensions:
+  health_check:
+    endpoint: "0.0.0.0:13133"
+    path: "/health"
+
+service:
+  extensions: [health_check]
+  pipelines:
+    traces:
+      receivers: [otlp, zipkin]
+      processors: [batch]
+      exporters: [debug, otlp, zipkin]
+    metrics:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [debug]
