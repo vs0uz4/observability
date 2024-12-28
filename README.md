@@ -92,7 +92,7 @@ Após a implementação dos serviços, adicione a implementação do OTEL + ZIPK
 
 Como sempre gosto de buscar incrementar meus exercícios, aumentando assim as chances de aprender mais, implementei um `endpoint` extra a nossa API onde teremos como resposta, dados sobre a saúde de nosso serviço o famoso `health check`. O mesmo atenderá no seguinte endereço abaixo:
 
-```http
+```plain-text
 http://localhost:{PORTA_DO_SERVICO}/health
 ```
 
