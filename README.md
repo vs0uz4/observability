@@ -1,9 +1,9 @@
-# WeatherZip
+# Observability
 
 > [!IMPORTANT]
 > Para poder executar o projeto contido neste repositório é necessário que se tenha o Docker instalado no computador. Para maiores informações siga o site <https://www.docker.com/>
 
-- [WeatherZip](#weatherzip)
+- [Observability](#observability)
   - [Desafio GoLang Pós GoExpert - Observabilidade \& Open Telemetry](#desafio-golang-pós-goexpert---observabilidade--open-telemetry)
     - [Requisitos a serem seguidos](#requisitos-a-serem-seguidos)
       - [Serviço A (SearchZip) \[Responsável pelo INPUT\]](#serviço-a-searchzip-responsável-pelo-input)
