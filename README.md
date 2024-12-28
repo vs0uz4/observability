@@ -238,7 +238,7 @@ Para consultar o clima de uma localidade, basta você consultar a API através d
 **CEP Válido**
 
 Request
-```http
+```plain-text
 curl --request POST \
   --url http://localhost:8080/ \
   --header 'Content-Type: application/json' \
@@ -262,7 +262,7 @@ Response [HTTP Status 200]
 **CEP Inválido**
 
 Request
-```http
+```plain-text
 curl --request POST \
   --url http://localhost:8080/ \
   --header 'Content-Type: application/json' \
@@ -283,7 +283,7 @@ invalid zipcode
 
 Request
 
-```http
+```plain-text
 curl --request POST \
   --url http://localhost:8080/ \
   --header 'Content-Type: application/json' \
@@ -307,7 +307,7 @@ Para verificarmos a saúde dos serviços, basta consultar a API do respectivo se
 **Health Check SearchZip**
 
 Request
-```http
+```plain-text
 curl --request GET \
   --url http://localhost:8080/health \
   --header 'Content-Type: application/json' \
@@ -344,7 +344,7 @@ Response [**HTTP Status 200**]
 **Health Check WeatherZip**
 
 Request
-```http
+```plain-text
 curl --request GET \
   --url http://localhost:8081/health \
   --header 'Content-Type: application/json' \
