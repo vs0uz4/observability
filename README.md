@@ -77,9 +77,9 @@ Após a implementação dos serviços, adicione a implementação do OTEL + ZIPK
 > - F = _Fahrenheit_;
 > - K = _Kelvin_
 >
-> Para dúvidas sobre como implementar o `OTEL`, você pode consultar [aqui](https://opentelemetry.io/docs/languages/go/getting-started/)
-> Para implementação de `spans`, você pode consultar [aqui](https://opentelemetry.io/docs/languages/go/instrumentation/#creating-spans)
-> Você irá precisar de utilizar um serviço `collector` do OTEL, para isto [clique aqui](https://opentelemetry.io/docs/collector/quick-start/)
+> Para dúvidas sobre como implementar o `OTEL`, você pode consultar [aqui](https://opentelemetry.io/docs/languages/go/getting-started/)\
+> Para implementação de `spans`, você pode consultar [aqui](https://opentelemetry.io/docs/languages/go/instrumentation/#creating-spans)\
+> Você irá precisar de utilizar um serviço `collector` do OTEL, para isto [clique aqui](https://opentelemetry.io/docs/collector/quick-start/)\
 > Para maiores informações sobre o Zipkin, você pode consultar [aqui](https://zipkin.io/)
 
 #### Entregas
