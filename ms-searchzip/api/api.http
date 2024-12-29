@@ -1,0 +1,26 @@
+### Consultar CEP Válido
+POST http://localhost:8000/ HTTP/1.1
+Host: localhost:8000
+Content-Type: application/json
+
+{
+  "cep": "98807172"
+}
+
+### Consultar CEP Inválido
+POST http://localhost:8000/ HTTP/1.1
+Host: localhost:8000
+Content-Type: application/json
+
+{
+  "cep": "988071723"
+}
+
+### Consultar CEP Não Encontrado
+POST http://localhost:8000/ HTTP/1.1
+Host: localhost:8000
+Content-Type: application/json
+
+{
+  "cep": "24560352"
+}
