@@ -70,6 +70,9 @@ func TestWeatherHandler(t *testing.T) {
 				return &mock.MockWeatherByCepUsecase{
 					GetWeatherByCepFunc: func(cep string) (domain.WeatherResponse, error) {
 						return domain.WeatherResponse{
+							Location: domain.LocationData{
+								Name: "São Paulo",
+							},
 							Current: domain.CurrentWeather{
 								TempC: 25.0,
 								TempF: 77.0,
@@ -80,7 +83,7 @@ func TestWeatherHandler(t *testing.T) {
 				}
 			},
 			expectedStatus: http.StatusOK,
-			expectedBody:   `{"temp_C":25,"temp_F":77,"temp_K":298.15}`,
+			expectedBody:   `{"city":"São Paulo","temp_C":25,"temp_F":77,"temp_K":298.15}`,
 		},
 		{
 			name:     "Erro no JSON Encode",
