@@ -77,20 +77,20 @@ services:
       otel-collector:
         condition: service_healthy
   
-  #ms-searchzip:
-  #  container_name: ms-searchzip
-  #  build:
-  #    context: ./ms-searchzip
-  #    dockerfile: Dockerfile
-  #  restart: always
-  #  ports:
-  #    - "8000:8000"
-  #  env_file:
-  #    - ./ms-searchzip/cmd/searchzip/.env
-  #  depends_on:
-  #    zipkin:
-  #     condition: service_healthy
-  #    jaeger-aio:
-  #      condition: service_healthy
-  #    otel-collector:
-  #      condition: service_healthy
+  ms-searchzip:
+    container_name: ms-searchzip
+    build:
+      context: ./ms-searchzip
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./ms-searchzip/cmd/searchzip/.env
+    depends_on:
+      zipkin:
+       condition: service_healthy
+      jaeger-aio:
+        condition: service_healthy
+      otel-collector:
+        condition: service_healthy
