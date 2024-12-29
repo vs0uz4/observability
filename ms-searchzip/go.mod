@@ -7,7 +7,6 @@ require (
 	github.com/shirou/gopsutil v3.21.11+incompatible
 	github.com/spf13/viper v1.19.0
 	github.com/stretchr/testify v1.9.0
-	github.com/vs0uz4/observability/ms-weatherzip v0.0.0-20241229041459-161154d84c52
 )
 
 require (
