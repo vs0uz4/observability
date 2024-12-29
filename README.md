@@ -96,7 +96,7 @@ Como sempre gosto de buscar incrementar meus exercícios, aumentando assim as ch
 http://localhost:{PORTA_DO_SERVICO}/health
 ```
 
-> Como teremos dois microsserviços/serviços, então o `endpoint` de `health-check` irá funcionar nas portas `8080` e `8081` respectivamente as portas em que os microsserviços serão levantados a princípio.
+> Como teremos dois microsserviços/serviços, então o `endpoint` de `health-check` irá funcionar nas portas `8000` e `8001` respectivamente as portas em que os microsserviços serão levantados a princípio.
 
 E terá como resposta um `payload` bem rico, contendo informações sobre:
 
@@ -143,7 +143,7 @@ Abaixo segue um exemplo de como será disponibilizado o `payload` na API
 
 #### Suite de Testes
 
-Para executar a suite de testes do projeto, estando na pasta raiz do projeto, basta executar os seguintes comando:
+Para executar as suites de testes de ambos os projetos, estando na pasta raiz, basta executar o seguinte comando:
 
 - Rodar suite de testes
 
@@ -208,13 +208,13 @@ Na janela do terminal, você deverá ver uma mensagem parecida com o exemplo aba
 
 ### Informações da API
 
-Os serviços, quando rodando em ambiente de desenvolvimento, irão responder no host `localhost` nas portas `8080` e `8081`, respectivamente, sendo os serviços `searchzip` e `weatherzip`.
+Os serviços, quando rodando em ambiente de desenvolvimento, irão responder no host `localhost` nas portas `8000` e `8001`, respectivamente, sendo os serviços `searchzip` e `weatherzip`.
 
 #### Rotas
 
 As rotas disponíveis nas API's dos serviços, são as seguintes apresentadas na listagem abaixo:
 
-- [http://localhost:8080] (SearchZip | Serviço A) - Valida o Input/CEP e direciona a consulta para WeatherZip
+- [http://localhost:8000] (SearchZip | Serviço A) - Valida o Input/CEP e direciona a consulta para WeatherZip
 
 ```plaintext
 GET /               - rota raiz, exibe mensagem de saudação (enjoy the silence!);
@@ -222,7 +222,7 @@ POST /              - Consulta CEP e direciona para serviço de clima, caso CEP 
 GET /health         - Verificação de saúde do serviço e exibe algumas estatísticas;
 ```
 
-- [http://localhost:8081] (WeatherZip | Serviço B) - Consulta de Clima da Localidade
+- [http://localhost:8001] (WeatherZip | Serviço B) - Consulta de Clima da Localidade
 
 ```plaintext
 GET /               - rota raiz, exibe mensagem de saudação (enjoy the silence!);
@@ -240,9 +240,9 @@ Para consultar o clima de uma localidade, basta você consultar a API através d
 Request
 ```plain-text
 curl --request POST \
-  --url http://localhost:8080/ \
+  --url http://localhost:8000/ \
   --header 'Content-Type: application/json' \
-  --header 'Host: localhost:8080' \
+  --header 'Host: localhost:8000' \
   --header 'User-Agent: insomnia/10.1.1' \
   --data '{
     "cep":"98807172"
@@ -264,9 +264,9 @@ Response [HTTP Status 200]
 Request
 ```plain-text
 curl --request POST \
-  --url http://localhost:8080/ \
+  --url http://localhost:8000/ \
   --header 'Content-Type: application/json' \
-  --header 'Host: localhost:8080' \
+  --header 'Host: localhost:8000' \
   --header 'User-Agent: insomnia/10.1.1' \
   --data '{
     "cep":"988071722"
@@ -285,9 +285,9 @@ Request
 
 ```plain-text
 curl --request POST \
-  --url http://localhost:8080/ \
+  --url http://localhost:8000/ \
   --header 'Content-Type: application/json' \
-  --header 'Host: localhost:8080' \
+  --header 'Host: localhost:8000' \
   --header 'User-Agent: insomnia/10.1.1' \
   --data '{
     "cep":"24560352"
@@ -309,9 +309,9 @@ Para verificarmos a saúde dos serviços, basta consultar a API do respectivo se
 Request
 ```plain-text
 curl --request GET \
-  --url http://localhost:8080/health \
+  --url http://localhost:8000/health \
   --header 'Content-Type: application/json' \
-  --header 'Host: localhost:8080' \
+  --header 'Host: localhost:8000' \
   --header 'User-Agent: insomnia/10.1.1'
 ```
 
@@ -346,9 +346,9 @@ Response [**HTTP Status 200**]
 Request
 ```plain-text
 curl --request GET \
-  --url http://localhost:8081/health \
+  --url http://localhost:8001/health \
   --header 'Content-Type: application/json' \
-  --header 'Host: localhost:8081' \
+  --header 'Host: localhost:8001' \
   --header 'User-Agent: insomnia/10.1.1'
 ```
 
