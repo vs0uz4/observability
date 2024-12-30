@@ -145,23 +145,23 @@ Abaixo segue um exemplo de como será disponibilizado o `payload` na API
 
 Para executar as suites de testes de ambos os projetos, estando na pasta raiz, basta executar o seguinte comando:
 
-- Rodar suite de testes
+- Rodar script `run_tests.sh`
 
 ```shell
-❯ go test -v ./... -coverprofile=report/coverage.out
+❯ ./run_tests.sh
 ```
 
-❯ **TODO** - por imagem capturada dos resultados da execução dos testes.
+> As suites de testes serão executadas e um relatórios contendo a informácão dos testes e taxa de cobertura dos testes de ambos os serviços serão apresentadas no seu console. Abaixo seguem os relatórios gerados mais recentes que disponibilizei.
 
-> A suite de testes será executada e um relatório de cobertura será gerado na pasta `report`
+- [ms-searchzip](./ms-searchzip/doc/COVERAGE.md)
+- [ms-weatherzip](./ms-weatherzip/doc/COVERAGE.md)
 
-- Gerar sumário de taxas de cobertura
+Resumo do relatório executado
 
-```shell
-❯ go tool cover -func=report/coverage.out
+```plain-text
+All tests completed.
+Overall Coverage: 90.30%
 ```
-
-❯ **TODO** - por imagem capturada das estatísticas de coverage.
 
 ### Executando os Serviços
 
@@ -238,6 +238,7 @@ Para consultar o clima de uma localidade, basta você consultar a API através d
 **CEP Válido**
 
 Request
+
 ```plain-text
 curl --request POST \
   --url http://localhost:8000/ \
@@ -245,23 +246,25 @@ curl --request POST \
   --header 'Host: localhost:8000' \
   --header 'User-Agent: insomnia/10.1.1' \
   --data '{
-    "cep":"98807172"
+    "cep":"99470970"
 }'
 ```
 
 Response [HTTP Status 200]
+
 ```json
-{ 
-  "city": "São Paulo", 
-  "temp_C": 28.5, 
-  "temp_F": 28.5, 
-  "temp_K": 28.5 
+{
+  "city": "Nao-Me-Toque",
+  "temp_C": 19.1,
+  "temp_F": 66.4,
+  "temp_K": 292.23
 }
 ```
 
 **CEP Inválido**
 
 Request
+
 ```plain-text
 curl --request POST \
   --url http://localhost:8000/ \
@@ -269,7 +272,7 @@ curl --request POST \
   --header 'Host: localhost:8000' \
   --header 'User-Agent: insomnia/10.1.1' \
   --data '{
-    "cep":"988071722"
+    "cep":"988071723"
 }'
 ```
 
@@ -307,6 +310,7 @@ Para verificarmos a saúde dos serviços, basta consultar a API do respectivo se
 **Health Check SearchZip**
 
 Request
+
 ```plain-text
 curl --request GET \
   --url http://localhost:8000/health \
@@ -344,6 +348,7 @@ Response [**HTTP Status 200**]
 **Health Check WeatherZip**
 
 Request
+
 ```plain-text
 curl --request GET \
   --url http://localhost:8001/health \
