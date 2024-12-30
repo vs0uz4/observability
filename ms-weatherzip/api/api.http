@@ -1,5 +1,5 @@
 ### Consultar CEP Válido
-GET http://localhost:8001/weather/98807172 HTTP/1.1
+GET http://localhost:8001/weather/99470970 HTTP/1.1
 Host: localhost:8001
 Content-Type: application/json
 
