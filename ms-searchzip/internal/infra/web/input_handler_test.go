@@ -2,6 +2,7 @@ package web
 
 import (
 	"fmt"
+	"io"
 	"math"
 	"net/http"
 	"net/http/httptest"
@@ -13,7 +14,7 @@ import (
 	"github.com/vs0uz4/observability/ms-searchzip/internal/usecase/mock"
 )
 
-func TestInputHandler(t *testing.T) {
+func TestGetLocationWeatherByCep(t *testing.T) {
 	tests := []struct {
 		name           string
 		inputCEP       string
@@ -154,5 +155,32 @@ func TestNewInputHandlerInitialization(t *testing.T) {
 
 	if handler.Usecase != mockUsecase {
 		t.Errorf("Expected usecase %v, got %v", mockUsecase, handler.Usecase)
+	}
+}
+
+func TestGetLocationWeatherByCepInvalidJSON(t *testing.T) {
+	invalidJSON := `{"cep": 12345678`
+
+	mockUsecase := &mock.MockWeatherLocationByCepUsecase{}
+	handler := NewInputHandler(mockUsecase)
+
+	req := httptest.NewRequest(http.MethodPost, "/weather", strings.NewReader(invalidJSON))
+	req.Header.Set("Content-Type", "application/json")
+
+	rr := httptest.NewRecorder()
+
+	handler.GetLocationWeatherByCep(rr, req)
+
+	resp := rr.Result()
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusBadRequest {
+		t.Errorf("expected status %d, got %d", http.StatusBadRequest, resp.StatusCode)
+	}
+
+	body, _ := io.ReadAll(resp.Body)
+	expectedBody := "invalid request\n"
+	if string(body) != expectedBody {
+		t.Errorf("expected body %q, got %q", expectedBody, string(body))
 	}
 }

@@ -8,21 +8,38 @@ import (
 
 func TestMockWeatherService(t *testing.T) {
 	mock := MockWeatherService{
-		GetWeatherFunc: func(location string) (domain.WeatherResponse, error) {
-			if location == "Valid Location" {
-				return domain.WeatherResponse{Current: domain.CurrentWeather{TempC: 25.0}}, nil
+		GetWeatherFunc: func(cep string) (domain.WeatherResponse, error) {
+			switch cep {
+			case "12345678":
+				return domain.WeatherResponse{City: "ABC", Celsius: 24.2, Fahrenheit: 75.6, Kelvin: 297.33}, nil
+			case "123":
+				return domain.WeatherResponse{}, domain.ErrInvalidZipcode
+			case "87654321":
+				return domain.WeatherResponse{}, domain.ErrZipcodeNotFound
+			default:
+				return domain.WeatherResponse{}, domain.ErrInternalServer
 			}
-			return domain.WeatherResponse{}, domain.ErrUnexpectedBadRequest
 		},
 	}
 
-	response, err := mock.GetWeather("Valid Location")
-	if response.Current.TempC != 25.0 || err != nil {
-		t.Errorf("Expected TempC: 25.0, got: %v, err: %v", response.Current.TempC, err)
+	response, err := mock.GetWeather("12345678")
+	if response.Celsius != 24.2 && response.City != "ABC" || err != nil {
+		t.Errorf("Expected Celsius: 24.2 and City: ABC, got: %v, err: %v", response.Celsius, err)
 	}
 
-	_, err = mock.GetWeather("Invalid Location")
-	if err != domain.ErrUnexpectedBadRequest {
-		t.Errorf("Expected error: %v, got: %v", domain.ErrUnexpectedBadRequest, err)
+	expectedMessage := "Expected error: %v, got: %v"
+	_, err = mock.GetWeather("123")
+	if err != domain.ErrInvalidZipcode {
+		t.Errorf(expectedMessage, domain.ErrInvalidZipcode, err)
+	}
+
+	_, err = mock.GetWeather("87654321")
+	if err != domain.ErrZipcodeNotFound {
+		t.Errorf(expectedMessage, domain.ErrZipcodeNotFound, err)
+	}
+
+	_, err = mock.GetWeather("23456789")
+	if err != domain.ErrInternalServer {
+		t.Errorf(expectedMessage, domain.ErrInternalServer, err)
 	}
 }
