@@ -22,11 +22,10 @@ func main() {
 	cpuService := service.NewCPUService()
 	memoryService := service.NewMemoryService()
 	uptimeService := service.NewUptimeService()
-	cepService := service.NewCepService(httpClient, cfg.CepAPIUrl)
 	weatherService := service.NewWeatherService(httpClient, cfg.WeatherZipAPIUrl)
 
 	healthCheckUseCase := usecase.NewHealthCheckUseCase(cpuService, memoryService, uptimeService)
-	weatherLocationByCepUseCase := usecase.NewWeatherLocationByCepUsecase(cepService, weatherService)
+	weatherLocationByCepUseCase := usecase.NewWeatherLocationByCepUsecase(weatherService)
 
 	handlerRoot := func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
