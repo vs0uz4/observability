@@ -16,6 +16,21 @@ func TestNewUnexpectedStatusCodeError(t *testing.T) {
 	}
 }
 
+func TestNewUnexpectedWeatherServiceError(t *testing.T) {
+	statusCode := 500
+	expectedMessage := fmt.Sprintf("unexpected error (HTTP %d): %s - details %s", statusCode, "response body", ErrWeatherService.Error())
+
+	err := NewUnexpectedWeatherServiceError(
+		ErrWeatherService,
+		statusCode,
+		"response body",
+	)
+
+	if err.Error() != expectedMessage {
+		t.Errorf("Expected error message %q, got %q", expectedMessage, err.Error())
+	}
+}
+
 func TestNewFailedToCreateRequestError(t *testing.T) {
 	originalErr := errors.New("invalid URL")
 	expectedMessage := fmt.Sprintf("failed to create request: %v", originalErr)

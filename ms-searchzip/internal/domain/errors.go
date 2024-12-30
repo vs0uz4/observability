@@ -50,7 +50,3 @@ func NewFailedToMakeRequestError(err error) error {
 func NewFailedToDecodeResponseError(err error) error {
 	return fmt.Errorf("failed to decode response: %w", err)
 }
-
-func NewFailedToEncodePayloadError(err error) error {
-	return fmt.Errorf("failed to encode payload: %w", err)
-}
