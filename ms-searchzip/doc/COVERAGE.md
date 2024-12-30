@@ -7,8 +7,6 @@ Running tests for ms-searchzip...
         github.com/vs0uz4/observability/ms-searchzip/cmd/searchzip              coverage: 0.0% of statements
         github.com/vs0uz4/observability/ms-searchzip/internal/infra/utils               coverage: 0.0% of statements
 ?       github.com/vs0uz4/observability/ms-searchzip/internal/infra/web/health  [no test files]
-?       github.com/vs0uz4/observability/ms-searchzip/internal/service/contract  [no test files]
-?       github.com/vs0uz4/observability/ms-searchzip/internal/usecase/contract  [no test files]
 === RUN   TestLoadConfigReadInConfigFails
 --- PASS: TestLoadConfigReadInConfigFails (0.00s)
 === RUN   TestLoadConfigPanicOnUnmarshalError
@@ -20,23 +18,9 @@ Running tests for ms-searchzip...
 --- PASS: TestLoadConfig (0.00s)
 PASS
 coverage: 100.0% of statements
-ok      github.com/vs0uz4/observability/ms-searchzip/config     0.342s  coverage: 100.0% of statements
-=== RUN   TestCepResponsePopulateFromMap
-=== RUN   TestCepResponsePopulateFromMap/Valid_Data
-=== RUN   TestCepResponsePopulateFromMap/CEP_Not_Found
-=== RUN   TestCepResponsePopulateFromMap/Invalid_CEP_Data
-=== RUN   TestCepResponsePopulateFromMap/Invalid_Street_Data
-=== RUN   TestCepResponsePopulateFromMap/Invalid_Neighborhood_Data
-=== RUN   TestCepResponsePopulateFromMap/Invalid_Location_Data
-=== RUN   TestCepResponsePopulateFromMap/Invalid_UF_Data
---- PASS: TestCepResponsePopulateFromMap (0.00s)
-    --- PASS: TestCepResponsePopulateFromMap/Valid_Data (0.00s)
-    --- PASS: TestCepResponsePopulateFromMap/CEP_Not_Found (0.00s)
-    --- PASS: TestCepResponsePopulateFromMap/Invalid_CEP_Data (0.00s)
-    --- PASS: TestCepResponsePopulateFromMap/Invalid_Street_Data (0.00s)
-    --- PASS: TestCepResponsePopulateFromMap/Invalid_Neighborhood_Data (0.00s)
-    --- PASS: TestCepResponsePopulateFromMap/Invalid_Location_Data (0.00s)
-    --- PASS: TestCepResponsePopulateFromMap/Invalid_UF_Data (0.00s)
+ok      github.com/vs0uz4/observability/ms-searchzip/config     0.194s  coverage: 100.0% of statements
+?       github.com/vs0uz4/observability/ms-searchzip/internal/service/contract  [no test files]
+?       github.com/vs0uz4/observability/ms-searchzip/internal/usecase/contract  [no test files]
 === RUN   TestNewUnexpectedStatusCodeError
 --- PASS: TestNewUnexpectedStatusCodeError (0.00s)
 === RUN   TestNewUnexpectedWeatherServiceError
@@ -49,7 +33,7 @@ ok      github.com/vs0uz4/observability/ms-searchzip/config     0.342s  coverage
 --- PASS: TestNewFailedToDecodeResponseError (0.00s)
 PASS
 coverage: 100.0% of statements
-ok      github.com/vs0uz4/observability/ms-searchzip/internal/domain    0.174s  coverage: 100.0% of statements
+ok      github.com/vs0uz4/observability/ms-searchzip/internal/domain    0.364s  coverage: 100.0% of statements
 === RUN   TestHealthHandlerGetHealth
 --- PASS: TestHealthHandlerGetHealth (0.00s)
 === RUN   TestHealthHandlerGetHealthErrorFromUseCase
@@ -76,7 +60,7 @@ ok      github.com/vs0uz4/observability/ms-searchzip/internal/domain    0.174s  
 --- PASS: TestGetLocationWeatherByCepInvalidJSON (0.00s)
 PASS
 coverage: 100.0% of statements
-ok      github.com/vs0uz4/observability/ms-searchzip/internal/infra/web 0.363s  coverage: 100.0% of statements
+ok      github.com/vs0uz4/observability/ms-searchzip/internal/infra/web 0.406s  coverage: 100.0% of statements
 === RUN   TestAddHandler
 --- PASS: TestAddHandler (0.00s)
 === RUN   TestWebServerLifecycle
@@ -89,7 +73,7 @@ ok      github.com/vs0uz4/observability/ms-searchzip/internal/infra/web 0.363s  
 === RUN   TestWebServerLifecycle/Valid_DELETE_Handler
 --- PASS: TestWebServerLifecycle (0.51s)
     --- PASS: TestWebServerLifecycle/Uptime_must_not_be_nil (0.00s)
-    --- PASS: TestWebServerLifecycle/Valid_HEAD_Handler (0.00s)
+    --- PASS: TestWebServerLifecycle/Valid_HEAD_Handler (0.01s)
     --- PASS: TestWebServerLifecycle/Valid_GET_Handler (0.00s)
     --- PASS: TestWebServerLifecycle/Valid_POST_Handler (0.00s)
     --- PASS: TestWebServerLifecycle/Valid_PUT_Handler (0.00s)
@@ -99,7 +83,7 @@ ok      github.com/vs0uz4/observability/ms-searchzip/internal/infra/web 0.363s  
 --- PASS: TestAddHandlerWithDuplicateMethods (0.00s)
 === RUN   TestInvalidMethods
 === RUN   TestInvalidMethods/Invalid_Method
-2024/12/30 02:31:43 "INVALID /test HTTP/1.1" from [::1]:52646 - 405 0B in 7.833µs - Error: 
+2024/12/30 03:26:37 "INVALID /test HTTP/1.1" from [::1]:54056 - 405 0B in 2.167µs - Error: 
 --- PASS: TestInvalidMethods (0.50s)
     --- PASS: TestInvalidMethods/Invalid_Method (0.00s)
 === RUN   TestWebServerStop
@@ -118,7 +102,7 @@ ok      github.com/vs0uz4/observability/ms-searchzip/internal/infra/web 0.363s  
     --- PASS: TestWebServerErrorScenarios/Run_Start_Without_Error (0.00s)
 PASS
 coverage: 100.0% of statements
-ok      github.com/vs0uz4/observability/ms-searchzip/internal/infra/web/webserver       2.019s  coverage: 100.0% of statements
+ok      github.com/vs0uz4/observability/ms-searchzip/internal/infra/web/webserver       2.056s  coverage: 100.0% of statements
 === RUN   TestResponseRecorderWriteHeader
 === RUN   TestResponseRecorderWriteHeader/Non-200_status_with_no_bytes_written
 === RUN   TestResponseRecorderWriteHeader/200_status_with_no_bytes_written
@@ -143,35 +127,7 @@ ok      github.com/vs0uz4/observability/ms-searchzip/internal/infra/web/webserve
     --- PASS: TestErrorLogger/Does_Not_Log_for_200 (0.00s)
 PASS
 coverage: 100.0% of statements
-ok      github.com/vs0uz4/observability/ms-searchzip/internal/infra/web/webserver/middleware    0.653s  coverage: 100.0% of statements
-=== RUN   TestCepServiceCreateRequest
-=== RUN   TestCepServiceCreateRequest/Request_Creation_Error
---- PASS: TestCepServiceCreateRequest (0.00s)
-    --- PASS: TestCepServiceCreateRequest/Request_Creation_Error (0.00s)
-=== RUN   TestCepServiceExecuteRequest
-=== RUN   TestCepServiceExecuteRequest/Request_Execution_Error
---- PASS: TestCepServiceExecuteRequest (0.00s)
-    --- PASS: TestCepServiceExecuteRequest/Request_Execution_Error (0.00s)
-=== RUN   TestCepServiceUnexpectedStatusCode
-=== RUN   TestCepServiceUnexpectedStatusCode/Unexpected_Status_Code
---- PASS: TestCepServiceUnexpectedStatusCode (0.00s)
-    --- PASS: TestCepServiceUnexpectedStatusCode/Unexpected_Status_Code (0.00s)
-=== RUN   TestCepServiceDecodeResponse
-=== RUN   TestCepServiceDecodeResponse/Failed_to_Decode_Response
---- PASS: TestCepServiceDecodeResponse (0.00s)
-    --- PASS: TestCepServiceDecodeResponse/Failed_to_Decode_Response (0.00s)
-=== RUN   TestCepServiceDecodeResponseError
---- PASS: TestCepServiceDecodeResponseError (0.00s)
-=== RUN   TestCepServicePopulateMapError
---- PASS: TestCepServicePopulateMapError (0.00s)
-=== RUN   TestCepServiceGetCepData
-=== RUN   TestCepServiceGetCepData/Valid_CEP
-=== RUN   TestCepServiceGetCepData/CEP_Not_Found
-=== RUN   TestCepServiceGetCepData/Invalid_CEP_Format
---- PASS: TestCepServiceGetCepData (0.00s)
-    --- PASS: TestCepServiceGetCepData/Valid_CEP (0.00s)
-    --- PASS: TestCepServiceGetCepData/CEP_Not_Found (0.00s)
-    --- PASS: TestCepServiceGetCepData/Invalid_CEP_Format (0.00s)
+ok      github.com/vs0uz4/observability/ms-searchzip/internal/infra/web/webserver/middleware    0.711s  coverage: 100.0% of statements
 === RUN   TestGetCPUStats
 --- PASS: TestGetCPUStats (0.00s)
 === RUN   TestGetCPUStatsError
@@ -220,11 +176,9 @@ ok      github.com/vs0uz4/observability/ms-searchzip/internal/infra/web/webserve
     --- PASS: TestWeatherServiceGetWeatherData/123 (0.00s)
 PASS
 coverage: 100.0% of statements
-ok      github.com/vs0uz4/observability/ms-searchzip/internal/service   0.897s  coverage: 100.0% of statements
+ok      github.com/vs0uz4/observability/ms-searchzip/internal/service   0.984s  coverage: 100.0% of statements
 === RUN   TestMockHTTPClientDo
 --- PASS: TestMockHTTPClientDo (0.00s)
-=== RUN   TestMockCepService
---- PASS: TestMockCepService (0.00s)
 === RUN   TestMockCPUService
 --- PASS: TestMockCPUService (0.00s)
 === RUN   TestMockMemoryService
@@ -233,7 +187,7 @@ ok      github.com/vs0uz4/observability/ms-searchzip/internal/service   0.897s  
 --- PASS: TestMockWeatherService (0.00s)
 PASS
 coverage: 100.0% of statements
-ok      github.com/vs0uz4/observability/ms-searchzip/internal/service/mock      0.936s  coverage: 100.0% of statements
+ok      github.com/vs0uz4/observability/ms-searchzip/internal/service/mock      1.049s  coverage: 100.0% of statements
 === RUN   TestGetHealth
 --- PASS: TestGetHealth (0.00s)
 === RUN   TestGetHealthCpuServiceError
@@ -249,18 +203,16 @@ ok      github.com/vs0uz4/observability/ms-searchzip/internal/service/mock      
 === RUN   TestGetWeatherLocationByCep
 === RUN   TestGetWeatherLocationByCep/Invalid_CEP
 === RUN   TestGetWeatherLocationByCep/CEP_Not_Found
-=== RUN   TestGetWeatherLocationByCep/CEP_Service_Error
 === RUN   TestGetWeatherLocationByCep/WeahterZip_Service_Error
 === RUN   TestGetWeatherLocationByCep/Success
 --- PASS: TestGetWeatherLocationByCep (0.00s)
     --- PASS: TestGetWeatherLocationByCep/Invalid_CEP (0.00s)
     --- PASS: TestGetWeatherLocationByCep/CEP_Not_Found (0.00s)
-    --- PASS: TestGetWeatherLocationByCep/CEP_Service_Error (0.00s)
     --- PASS: TestGetWeatherLocationByCep/WeahterZip_Service_Error (0.00s)
     --- PASS: TestGetWeatherLocationByCep/Success (0.00s)
 PASS
 coverage: 100.0% of statements
-ok      github.com/vs0uz4/observability/ms-searchzip/internal/usecase   1.014s  coverage: 100.0% of statements
+ok      github.com/vs0uz4/observability/ms-searchzip/internal/usecase   1.123s  coverage: 100.0% of statements
 === RUN   TestMockHealthCheckUseCase
 --- PASS: TestMockHealthCheckUseCase (0.00s)
 === RUN   TestMockWeatherLocationByCepUsecase
@@ -275,8 +227,7 @@ ok      github.com/vs0uz4/observability/ms-searchzip/internal/usecase   1.014s  
     --- PASS: TestMockWeatherLocationByCepUsecase/Unexpected_Error_Failure (0.00s)
 PASS
 coverage: 100.0% of statements
-ok      github.com/vs0uz4/observability/ms-searchzip/internal/usecase/mock      1.160s  coverage: 100.0% of statements
+ok      github.com/vs0uz4/observability/ms-searchzip/internal/usecase/mock      1.281s  coverage: 100.0% of statements
 Calculating coverage for ms-searchzip...
-ms-searchzip Coverage: 90.2%
----------------------------------------------------------------------------------------------------------------------
+ms-searchzip Coverage: 88.4%
 ```

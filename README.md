@@ -159,8 +159,9 @@ Para executar as suites de testes de ambos os projetos, estando na pasta raiz, b
 Resumo do relatório executado
 
 ```plain-text
+---------------------------------------------------------------------------------------------------------------------
 All tests completed.
-Overall Coverage: 90.30%
+Overall Coverage: 89.40%
 ```
 
 ### Executando os Serviços

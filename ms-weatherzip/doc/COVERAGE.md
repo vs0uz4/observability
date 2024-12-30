@@ -19,7 +19,7 @@ Running tests for ms-weatherzip...
 --- PASS: TestLoadConfig (0.00s)
 PASS
 coverage: 100.0% of statements
-ok      github.com/vs0uz4/observability/ms-weatherzip/config    0.640s  coverage: 100.0% of statements
+ok      github.com/vs0uz4/observability/ms-weatherzip/config    0.661s  coverage: 100.0% of statements
 === RUN   TestCepResponsePopulateFromMap
 === RUN   TestCepResponsePopulateFromMap/Valid_Data
 === RUN   TestCepResponsePopulateFromMap/CEP_Not_Found
@@ -54,7 +54,7 @@ ok      github.com/vs0uz4/observability/ms-weatherzip/config    0.640s  coverage
     --- PASS: TestWeatherResponsePopulateFromMap/Invalid_Current_Structure (0.00s)
 PASS
 coverage: 100.0% of statements
-ok      github.com/vs0uz4/observability/ms-weatherzip/internal/domain   0.455s  coverage: 100.0% of statements
+ok      github.com/vs0uz4/observability/ms-weatherzip/internal/domain   0.469s  coverage: 100.0% of statements
 === RUN   TestHealthHandlerGetHealth
 --- PASS: TestHealthHandlerGetHealth (0.00s)
 === RUN   TestHealthHandlerGetHealthErrorFromUseCase
@@ -77,7 +77,7 @@ ok      github.com/vs0uz4/observability/ms-weatherzip/internal/domain   0.455s  
 --- PASS: TestNewWeatherHandlerInitialization (0.00s)
 PASS
 coverage: 100.0% of statements
-ok      github.com/vs0uz4/observability/ms-weatherzip/internal/infra/web        0.670s  coverage: 100.0% of statements
+ok      github.com/vs0uz4/observability/ms-weatherzip/internal/infra/web        0.692s  coverage: 100.0% of statements
 === RUN   TestAddHandler
 --- PASS: TestAddHandler (0.00s)
 === RUN   TestWebServerLifecycle
@@ -100,7 +100,7 @@ ok      github.com/vs0uz4/observability/ms-weatherzip/internal/infra/web        
 --- PASS: TestAddHandlerWithDuplicateMethods (0.00s)
 === RUN   TestInvalidMethods
 === RUN   TestInvalidMethods/Invalid_Method
-2024/12/30 02:31:40 "INVALID /test HTTP/1.1" from [::1]:52627 - 405 0B in 7.708µs - Error: 
+2024/12/30 03:26:34 "INVALID /test HTTP/1.1" from [::1]:54041 - 405 0B in 8.5µs - Error: 
 --- PASS: TestInvalidMethods (0.50s)
     --- PASS: TestInvalidMethods/Invalid_Method (0.00s)
 === RUN   TestWebServerStop
@@ -119,7 +119,7 @@ ok      github.com/vs0uz4/observability/ms-weatherzip/internal/infra/web        
     --- PASS: TestWebServerErrorScenarios/Run_Start_Without_Error (0.00s)
 PASS
 coverage: 100.0% of statements
-ok      github.com/vs0uz4/observability/ms-weatherzip/internal/infra/web/webserver      2.322s  coverage: 100.0% of statements
+ok      github.com/vs0uz4/observability/ms-weatherzip/internal/infra/web/webserver      2.342s  coverage: 100.0% of statements
 === RUN   TestResponseRecorderWriteHeader
 === RUN   TestResponseRecorderWriteHeader/Non-200_status_with_no_bytes_written
 === RUN   TestResponseRecorderWriteHeader/200_status_with_no_bytes_written
@@ -144,7 +144,7 @@ ok      github.com/vs0uz4/observability/ms-weatherzip/internal/infra/web/webserv
     --- PASS: TestErrorLogger/Does_Not_Log_for_200 (0.00s)
 PASS
 coverage: 100.0% of statements
-ok      github.com/vs0uz4/observability/ms-weatherzip/internal/infra/web/webserver/middleware   0.961s  coverage: 100.0% of statements
+ok      github.com/vs0uz4/observability/ms-weatherzip/internal/infra/web/webserver/middleware   0.994s  coverage: 100.0% of statements
 === RUN   TestCepServiceCreateRequest
 === RUN   TestCepServiceCreateRequest/Request_Creation_Error
 --- PASS: TestCepServiceCreateRequest (0.00s)
@@ -219,7 +219,7 @@ ok      github.com/vs0uz4/observability/ms-weatherzip/internal/infra/web/webserv
     --- PASS: TestWeatherServiceGetWeatherData/Location_Not_Found (0.00s)
 PASS
 coverage: 100.0% of statements
-ok      github.com/vs0uz4/observability/ms-weatherzip/internal/service  1.376s  coverage: 100.0% of statements
+ok      github.com/vs0uz4/observability/ms-weatherzip/internal/service  1.279s  coverage: 100.0% of statements
 === RUN   TestMockHTTPClientDo
 --- PASS: TestMockHTTPClientDo (0.00s)
 === RUN   TestMockCepService
@@ -232,7 +232,7 @@ ok      github.com/vs0uz4/observability/ms-weatherzip/internal/service  1.376s  
 --- PASS: TestMockWeatherService (0.00s)
 PASS
 coverage: 100.0% of statements
-ok      github.com/vs0uz4/observability/ms-weatherzip/internal/service/mock     1.106s  coverage: 100.0% of statements
+ok      github.com/vs0uz4/observability/ms-weatherzip/internal/service/mock     1.337s  coverage: 100.0% of statements
 === RUN   TestGetHealth
 --- PASS: TestGetHealth (0.00s)
 === RUN   TestGetHealthCpuServiceError
@@ -257,7 +257,7 @@ ok      github.com/vs0uz4/observability/ms-weatherzip/internal/service/mock     
     --- PASS: TestGetWeatherByCep/Success (0.00s)
 PASS
 coverage: 100.0% of statements
-ok      github.com/vs0uz4/observability/ms-weatherzip/internal/usecase  1.417s  coverage: 100.0% of statements
+ok      github.com/vs0uz4/observability/ms-weatherzip/internal/usecase  1.487s  coverage: 100.0% of statements
 === RUN   TestMockHealthCheckUseCase
 --- PASS: TestMockHealthCheckUseCase (0.00s)
 === RUN   TestMockWeatherByCepUsecase
@@ -268,7 +268,7 @@ ok      github.com/vs0uz4/observability/ms-weatherzip/internal/usecase  1.417s  
     --- PASS: TestMockWeatherByCepUsecase/Failure (0.00s)
 PASS
 coverage: 100.0% of statements
-ok      github.com/vs0uz4/observability/ms-weatherzip/internal/usecase/mock     1.464s  coverage: 100.0% of statements
+ok      github.com/vs0uz4/observability/ms-weatherzip/internal/usecase/mock     1.311s  coverage: 100.0% of statements
 Calculating coverage for ms-weatherzip...
 ms-weatherzip Coverage: 90.4%
 ```
