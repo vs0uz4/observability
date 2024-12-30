@@ -30,14 +30,9 @@ func TestIsNumeric(t *testing.T) {
 }
 
 func TestNewWeatherLocationByCepUsecase(t *testing.T) {
-	mockCepSvc := &mock.MockCepService{}
 	mockWeatherSvc := &mock.MockWeatherService{}
 
-	usecase := NewWeatherLocationByCepUsecase(mockCepSvc, mockWeatherSvc)
-
-	if usecase.CepService != mockCepSvc {
-		t.Errorf("Expected CepService to be %v, got %v", mockCepSvc, usecase.CepService)
-	}
+	usecase := NewWeatherLocationByCepUsecase(mockWeatherSvc)
 
 	if usecase.WeatherService != mockWeatherSvc {
 		t.Errorf("Expected WeatherService to be %v, got %v", mockWeatherSvc, usecase.WeatherService)
@@ -48,7 +43,6 @@ func TestGetWeatherLocationByCep(t *testing.T) {
 	tests := []struct {
 		name           string
 		inputCep       string
-		mockCepSvc     func() *mock.MockCepService
 		mockWeatherSvc func() *mock.MockWeatherService
 		expectErr      error
 		expectOutput   domain.WeatherResponse
@@ -56,9 +50,6 @@ func TestGetWeatherLocationByCep(t *testing.T) {
 		{
 			name:     "Invalid CEP",
 			inputCep: "123",
-			mockCepSvc: func() *mock.MockCepService {
-				return &mock.MockCepService{}
-			},
 			mockWeatherSvc: func() *mock.MockWeatherService {
 				return &mock.MockWeatherService{}
 			},
@@ -67,46 +58,18 @@ func TestGetWeatherLocationByCep(t *testing.T) {
 		{
 			name:     "CEP Not Found",
 			inputCep: "99999999",
-			mockCepSvc: func() *mock.MockCepService {
-				return &mock.MockCepService{
-					GetLocationFunc: func(cep string) (domain.CepResponse, error) {
-						return domain.CepResponse{}, domain.ErrZipcodeNotFound
+			mockWeatherSvc: func() *mock.MockWeatherService {
+				return &mock.MockWeatherService{
+					GetWeatherFunc: func(cep string) (domain.WeatherResponse, error) {
+						return domain.WeatherResponse{}, domain.ErrZipcodeNotFound
 					},
 				}
-			},
-			mockWeatherSvc: func() *mock.MockWeatherService {
-				return &mock.MockWeatherService{}
 			},
 			expectErr: domain.ErrZipcodeNotFound,
 		},
 		{
-			name:     "CEP Service Error",
-			inputCep: "12345678",
-			mockCepSvc: func() *mock.MockCepService {
-				return &mock.MockCepService{
-					GetLocationFunc: func(cep string) (domain.CepResponse, error) {
-						return domain.CepResponse{}, domain.ErrCepService
-					},
-				}
-			},
-			mockWeatherSvc: func() *mock.MockWeatherService {
-				return &mock.MockWeatherService{}
-			},
-			expectErr: domain.ErrCepService,
-		},
-		{
 			name:     "WeahterZip Service Error",
 			inputCep: "12345678",
-			mockCepSvc: func() *mock.MockCepService {
-				return &mock.MockCepService{
-					GetLocationFunc: func(cep string) (domain.CepResponse, error) {
-						return domain.CepResponse{
-							Localidade: "City",
-							Uf:         "State",
-						}, nil
-					},
-				}
-			},
 			mockWeatherSvc: func() *mock.MockWeatherService {
 				return &mock.MockWeatherService{
 					GetWeatherFunc: func(cep string) (domain.WeatherResponse, error) {
@@ -119,16 +82,6 @@ func TestGetWeatherLocationByCep(t *testing.T) {
 		{
 			name:     "Success",
 			inputCep: "12345678",
-			mockCepSvc: func() *mock.MockCepService {
-				return &mock.MockCepService{
-					GetLocationFunc: func(cep string) (domain.CepResponse, error) {
-						return domain.CepResponse{
-							Localidade: "City",
-							Uf:         "State",
-						}, nil
-					},
-				}
-			},
 			mockWeatherSvc: func() *mock.MockWeatherService {
 				return &mock.MockWeatherService{
 					GetWeatherFunc: func(cep string) (domain.WeatherResponse, error) {
@@ -153,7 +106,6 @@ func TestGetWeatherLocationByCep(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			usecase := weatherLocationByCepUsecase{
-				CepService:     tt.mockCepSvc(),
 				WeatherService: tt.mockWeatherSvc(),
 			}
 

@@ -7,13 +7,11 @@ import (
 )
 
 type weatherLocationByCepUsecase struct {
-	CepService     contract.CepService
 	WeatherService contract.WeatherService
 }
 
-func NewWeatherLocationByCepUsecase(cepService contract.CepService, weatherService contract.WeatherService) *weatherLocationByCepUsecase {
+func NewWeatherLocationByCepUsecase(weatherService contract.WeatherService) *weatherLocationByCepUsecase {
 	return &weatherLocationByCepUsecase{
-		CepService:     cepService,
 		WeatherService: weatherService,
 	}
 }
@@ -21,11 +19,6 @@ func NewWeatherLocationByCepUsecase(cepService contract.CepService, weatherServi
 func (uc *weatherLocationByCepUsecase) GetWeatherLocationByCep(cep string) (domain.WeatherResponse, error) {
 	if len(cep) != 8 || !utils.IsNumeric(cep) {
 		return domain.WeatherResponse{}, domain.ErrInvalidZipcode
-	}
-
-	_, err := uc.CepService.GetLocation(cep)
-	if err != nil {
-		return domain.WeatherResponse{}, err
 	}
 
 	weather, err := uc.WeatherService.GetWeather(cep)
