@@ -55,7 +55,7 @@ Baseado no cenário conhecido _"Sistema de temperatura por CEP"_, denominado de 
     - Response: **invalid zipcode**
   - Em caso de FALHA, onde o CEP informado não seja encontrado
     - Código HTTP: **404**
-    - Response: **can`t find zipcode**
+    - Response: **can not find zipcode**
 
 Após a implementação dos serviços, adicione a implementação do OTEL + ZIPKIN:
 
