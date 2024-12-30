@@ -218,17 +218,17 @@ As rotas disponíveis nas API's dos serviços, são as seguintes apresentadas na
 - [http://localhost:8000] (SearchZip | Serviço A) - Valida o Input/CEP e direciona a consulta para WeatherZip
 
 ```plaintext
-GET /               - rota raiz, exibe mensagem de saudação (enjoy the silence!);
-POST /              - Consulta CEP e direciona para serviço de clima, caso CEP exista e seja válido;
-GET /health         - Verificação de saúde do serviço e exibe algumas estatísticas;
+GET /               - Rota raiz, exibe mensagem de saudação (enjoy the silence!);
+POST /              - Valida o CEP(INPUT) informado e caso seja válido direciona para serviço de clima;
+GET /health         - Verifica saúde do serviço e exibe algumas estatísticas;
 ```
 
 - [http://localhost:8001] (WeatherZip | Serviço B) - Consulta de Clima da Localidade
 
 ```plaintext
-GET /               - rota raiz, exibe mensagem de saudação (enjoy the silence!);
-GET /health         - Verificação de saúde do serviço e exibe algumas estatísticas;
-GET /weather/{cep}  - Exibição de temperatura atual de uma localidade a ser consultada através do CEP.
+GET /               - Rota raiz, exibe mensagem de saudação (enjoy the silence!);
+GET /health         - Verifica saúde do serviço e exibe algumas estatísticas;
+GET /weather/{cep}  - Exibe temperatura e nome de localidade consultada por CEP.
 ```
 
 #### Consultando Temperaturas
