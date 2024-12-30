@@ -23,7 +23,7 @@ func TestWeatherResponsePopulateFromMap(t *testing.T) {
 			output: WeatherResponse{
 				Location: LocationData{Name: "Cidade C", Region: "Região R", Country: "País P"},
 				Current: CurrentWeather{
-					TempC: 25.0, TempF: 77.0, TempK: 298.15,
+					TempC: 25.0, TempF: 77.0, TempK: 298,
 					Condition: WeatherCondition{Text: "Sunny", Icon: "icon_url"},
 				},
 			},

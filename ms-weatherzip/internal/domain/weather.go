@@ -44,7 +44,7 @@ func (w *WeatherResponse) PopulateFromMap(data map[string]interface{}) error {
 	}
 	w.Current.TempC = current["temp_c"].(float64)
 	w.Current.TempF = current["temp_f"].(float64)
-	w.Current.TempK = w.Current.TempC + 273.15
+	w.Current.TempK = w.Current.TempC + 273
 
 	condition, ok := current["condition"].(map[string]interface{})
 	if ok {
