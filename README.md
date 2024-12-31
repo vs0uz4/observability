@@ -11,6 +11,7 @@
       - [Entregas](#entregas)
     - [Extras Adicionados](#extras-adicionados)
       - [Suite de Testes](#suite-de-testes)
+      - [Documentação da API](#documentação-da-api)
     - [Executando os Serviços](#executando-os-serviços)
     - [Informações da API](#informações-da-api)
       - [Rotas](#rotas)
@@ -164,6 +165,13 @@ All tests completed.
 Overall Coverage: 89.40%
 ```
 
+#### Documentação da API
+
+Adicionei também a documentação da API utilizando o Swagger, desta forma os `endpoints` de ambos os serviços podem ser testados também diretamente do navegador, através das suas respectivas rotas. Para acessar a documentação dos serviços, basta acessa as seguintes URL's abaixo:
+
+- http://localhost:8000/swagger/ - Para acessar a documentação do serviço A (Input Validate);
+- http://localhost:8001/swagger/ - Para acessar a documentação do serviço B (Weather Zip).
+
 ### Executando os Serviços
 
 - Inicializando os serviços...
@@ -221,6 +229,7 @@ As rotas disponíveis nas API's dos serviços, são as seguintes apresentadas na
 GET /               - Rota raiz, exibe mensagem de saudação (enjoy the silence!);
 POST /              - Valida o CEP(INPUT) informado e caso seja válido direciona para serviço de clima;
 GET /health         - Verifica saúde do serviço e exibe algumas estatísticas;
+GET /swagger/*      - Documentação da API no Swagger 
 ```
 
 - [http://localhost:8001] (WeatherZip | Serviço B) - Consulta de Clima da Localidade
@@ -229,6 +238,7 @@ GET /health         - Verifica saúde do serviço e exibe algumas estatísticas;
 GET /               - Rota raiz, exibe mensagem de saudação (enjoy the silence!);
 GET /health         - Verifica saúde do serviço e exibe algumas estatísticas;
 GET /weather/{cep}  - Exibe temperatura e nome de localidade consultada por CEP.
+GET /swagger/*      - Documentação da API no Swagger 
 ```
 
 #### Consultando Temperaturas
