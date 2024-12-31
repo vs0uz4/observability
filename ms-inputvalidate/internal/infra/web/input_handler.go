@@ -22,6 +22,18 @@ func NewInputHandler(uc contract.WeatherLocationByCepUsecase) *InputHandler {
 	return &InputHandler{Usecase: uc}
 }
 
+// GetLocationWeatherByCep é o handler que valida o INPUT(CEP) e encaminha a consulta ao serviço de clima
+// @Summary Valida e encaminha um INPUT(CEP) para consulta de clima
+// @Description Valida se o INPUT(CEP) contém 8 dígitos e encaminha para o serviço de clima se for válido.
+// @Tags Input
+// @Accept  json
+// @Produce  json
+// @Param   cep  body CepRequest   true  "CEP"
+// @Success 200 {object} domain.WeatherResponse
+// @Failure 422 {string} string "invalid zipcode"
+// @Failure 404 {string} string "can not find zipcode"
+// @Failure 500 {string} string "internal server error"
+// @Router / [post]
 func (h *InputHandler) GetLocationWeatherByCep(w http.ResponseWriter, r *http.Request) {
 	var req CepRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
