@@ -6,7 +6,7 @@
 - [Observability](#observability)
   - [Desafio GoLang Pós GoExpert - Observabilidade \& Open Telemetry](#desafio-golang-pós-goexpert---observabilidade--open-telemetry)
     - [Requisitos a serem seguidos](#requisitos-a-serem-seguidos)
-      - [Serviço A (SearchZip) \[Responsável pelo INPUT\]](#serviço-a-searchzip-responsável-pelo-input)
+      - [Serviço A (InputValidate) \[Responsável pelo INPUT\]](#serviço-a-inputvalidate-responsável-pelo-input)
       - [Serviço B (WeatherZip) \[Responsável pela ORQUESTRAÇÃO\]](#serviço-b-weatherzip-responsável-pela-orquestração)
       - [Entregas](#entregas)
     - [Extras Adicionados](#extras-adicionados)
@@ -33,7 +33,7 @@ O Desafio consiste em desenvolver uma API em Go Lang, que possua um `endpoint` o
 
 Baseado no cenário conhecido _"Sistema de temperatura por CEP"_, denominado de **Serviço B**, será incluído um novo projeto, denominado de **Serviço A**.
 
-#### Serviço A (SearchZip) [Responsável pelo INPUT]
+#### Serviço A (InputValidate) [Responsável pelo INPUT]
 
 - Deve receber um input de 8 dígitos via POST, através do schema: { "cep": "29902555" }
 - Deve validar se o input é válido (contém 8 dígitos) e é uma STRING
@@ -59,7 +59,7 @@ Baseado no cenário conhecido _"Sistema de temperatura por CEP"_, denominado de 
 
 Após a implementação dos serviços, adicione a implementação do OTEL + ZIPKIN:
 
-- Implementar `tracing` distribuído entre Serviço A (searchZip) <-> Serviço B (weatherZip)
+- Implementar `tracing` distribuído entre Serviço A (inputValidate) <-> Serviço B (weatherZip)
 - Utilizar `span` para medir o tempo de resposta do serviço de busca de CEP e busca de temperatura
 
 > [!TIP]
@@ -153,7 +153,7 @@ Para executar as suites de testes de ambos os projetos, estando na pasta raiz, b
 
 > As suites de testes serão executadas e um relatórios contendo a informácão dos testes e taxa de cobertura dos testes de ambos os serviços serão apresentadas no seu console. Abaixo seguem os relatórios gerados mais recentes que disponibilizei.
 
-- [ms-searchzip](./ms-searchzip/doc/COVERAGE.md)
+- [ms-inputvalidate](./ms-inputvalidate/doc/COVERAGE.md)
 - [ms-weatherzip](./ms-weatherzip/doc/COVERAGE.md)
 
 Resumo do relatório executado
@@ -183,7 +183,7 @@ Na janela do terminal, você deverá ver uma mensagem parecida com o exemplo aba
  ✔ Container jaeger-aio      Healthy                                  1.1s 
  ✔ Container ms-weatherzip   Started                                  11.3s 
  ✔ Container otel-collector  Healthy                                  11.0s 
- ✔ Container ms-searchzip    Started                                  11.0s 
+ ✔ Container ms-inputvalidate    Started                                  11.0s 
 ```
 
 - Encerrando os serviços
@@ -199,7 +199,7 @@ Na janela do terminal, você deverá ver uma mensagem parecida com o exemplo aba
 ```shell
 ❯ docker compose down
 [+] Running 6/6
- ✔ Container ms-searchzip              Removed                        0.3s 
+ ✔ Container ms-inputvalidate              Removed                        0.3s 
  ✔ Container ms-weatherzip             Removed                        0.4s 
  ✔ Container otel-collector            Removed                        0.3s 
  ✔ Container zipkin                    Removed                        2.7s 
@@ -209,13 +209,13 @@ Na janela do terminal, você deverá ver uma mensagem parecida com o exemplo aba
 
 ### Informações da API
 
-Os serviços, quando rodando em ambiente de desenvolvimento, irão responder no host `localhost` nas portas `8000` e `8001`, respectivamente, sendo os serviços `searchzip` e `weatherzip`.
+Os serviços, quando rodando em ambiente de desenvolvimento, irão responder no host `localhost` nas portas `8000` e `8001`, respectivamente, sendo os serviços `inputvalidate` e `weatherzip`.
 
 #### Rotas
 
 As rotas disponíveis nas API's dos serviços, são as seguintes apresentadas na listagem abaixo:
 
-- [http://localhost:8000] (SearchZip | Serviço A) - Valida o Input/CEP e direciona a consulta para WeatherZip
+- [http://localhost:8000] (InputValidate | Serviço A) - Valida o Input/CEP e direciona a consulta para WeatherZip
 
 ```plaintext
 GET /               - Rota raiz, exibe mensagem de saudação (enjoy the silence!);
@@ -234,7 +234,7 @@ GET /weather/{cep}  - Exibe temperatura e nome de localidade consultada por CEP.
 #### Consultando Temperaturas
 
 **Como consultamos a temperatura de uma determinada localidade?** \
-Para consultar o clima de uma localidade, basta você consultar a API através da rota `POST /` do serviço `searchzip` que o mesmo irá validar o CEP(input) informado, e caso o mesmo seja válido encaminhará a consulta para a API do serviço `weatherzip`. Caso contrário responderá com uma mensagem informando que o CEP informado é inválido. Exemplos:
+Para consultar o clima de uma localidade, basta você consultar a API através da rota `POST /` do serviço `inputvalidate` que o mesmo irá validar o CEP(input) informado, e caso o mesmo seja válido encaminhará a consulta para a API do serviço `weatherzip`. Caso contrário responderá com uma mensagem informando que o CEP informado é inválido. Exemplos:
 
 **CEP Válido**
 
@@ -308,7 +308,7 @@ can not find zipcode
 
 Para verificarmos a saúde dos serviços, basta consultar a API do respectivo serviço que queira colher as informações acionando a rota `GET /health` que o mesmo irá responder com as informações sobre sua saúde. Exemplo:
 
-**Health Check SearchZip**
+**Health Check InputValidate**
 
 Request
 
