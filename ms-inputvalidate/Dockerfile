@@ -20,6 +20,7 @@ RUN go mod download
 
 COPY ./cmd      /app/cmd
 COPY ./config   /app/config
+COPY ./doc/swagger /app/doc/swagger
 COPY ./internal /app/internal
 
 RUN mv /app/cmd/inputvalidate/.env /app/.env && \
