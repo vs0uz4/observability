@@ -9,8 +9,8 @@ RUN apt-get update && \
     echo "America/Sao_Paulo" > /etc/timezone && \
     ln -sf /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime && \
     dpkg-reconfigure -f noninteractive tzdata && \
-    addgroup --system searchzip && \ 
-    adduser --system --ingroup searchzip searchzip
+    addgroup --system inputvalidate && \ 
+    adduser --system --ingroup inputvalidate inputvalidate
 
 WORKDIR /app
 
@@ -22,19 +22,19 @@ COPY ./cmd      /app/cmd
 COPY ./config   /app/config
 COPY ./internal /app/internal
 
-RUN mv /app/cmd/searchzip/.env /app/.env && \
-	CGO_ENABLED=0 GOOS=linux go build -o searchzipapp ./cmd/searchzip
+RUN mv /app/cmd/inputvalidate/.env /app/.env && \
+	CGO_ENABLED=0 GOOS=linux go build -o inputvalidateapp ./cmd/inputvalidate
 
 FROM scratch
 
 COPY --from=builder /etc/passwd /etc/passwd
-USER searchzip
+USER inputvalidate
 
 COPY --from=builder /app/.env .
-COPY --from=builder /app/searchzipapp .
+COPY --from=builder /app/inputvalidateapp .
 COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
 COPY --from=builder /usr/share/zoneinfo/America/Sao_Paulo /usr/share/zoneinfo/America/Sao_Paulo
 
 ENV TZ=America/Sao_Paulo
 
-ENTRYPOINT [ "./searchzipapp" ]
+ENTRYPOINT [ "./inputvalidateapp" ]
