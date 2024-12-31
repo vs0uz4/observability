@@ -3,7 +3,7 @@
 # Garantir que o script use o locale padrão com ponto como separador decimal
 export LC_NUMERIC="C"
 
-services=("ms-weatherzip" "ms-searchzip")
+services=("ms-weatherzip" "ms-inputvalidate")
 overall_coverage=0
 
 echo "Starting tests for all services..."
