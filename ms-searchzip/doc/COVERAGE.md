@@ -1,12 +1,12 @@
-# MS-SEARCHZIP COVERAGE
+# MS-INPUTVALIDATE COVERAGE
 
-Abaixo temos o `report` da cobertura dos testes implementados no SearchZip (SERVIÇO A)
+Abaixo temos o `report` da cobertura dos testes implementados no InputValidate (SERVIÇO A)
 
 ```plain-text
-Running tests for ms-searchzip...
-        github.com/vs0uz4/observability/ms-searchzip/cmd/searchzip              coverage: 0.0% of statements
-        github.com/vs0uz4/observability/ms-searchzip/internal/infra/utils               coverage: 0.0% of statements
-?       github.com/vs0uz4/observability/ms-searchzip/internal/infra/web/health  [no test files]
+Running tests for ms-inputvalidate...
+        github.com/vs0uz4/observability/ms-inputvalidate/cmd/inputvalidate              coverage: 0.0% of statements
+        github.com/vs0uz4/observability/ms-inputvalidate/internal/infra/utils               coverage: 0.0% of statements
+?       github.com/vs0uz4/observability/ms-inputvalidate/internal/infra/web/health  [no test files]
 === RUN   TestLoadConfigReadInConfigFails
 --- PASS: TestLoadConfigReadInConfigFails (0.00s)
 === RUN   TestLoadConfigPanicOnUnmarshalError
@@ -18,9 +18,9 @@ Running tests for ms-searchzip...
 --- PASS: TestLoadConfig (0.00s)
 PASS
 coverage: 100.0% of statements
-ok      github.com/vs0uz4/observability/ms-searchzip/config     0.194s  coverage: 100.0% of statements
-?       github.com/vs0uz4/observability/ms-searchzip/internal/service/contract  [no test files]
-?       github.com/vs0uz4/observability/ms-searchzip/internal/usecase/contract  [no test files]
+ok      github.com/vs0uz4/observability/ms-inputvalidate/config     0.194s  coverage: 100.0% of statements
+?       github.com/vs0uz4/observability/ms-inputvalidate/internal/service/contract  [no test files]
+?       github.com/vs0uz4/observability/ms-inputvalidate/internal/usecase/contract  [no test files]
 === RUN   TestNewUnexpectedStatusCodeError
 --- PASS: TestNewUnexpectedStatusCodeError (0.00s)
 === RUN   TestNewUnexpectedWeatherServiceError
@@ -33,7 +33,7 @@ ok      github.com/vs0uz4/observability/ms-searchzip/config     0.194s  coverage
 --- PASS: TestNewFailedToDecodeResponseError (0.00s)
 PASS
 coverage: 100.0% of statements
-ok      github.com/vs0uz4/observability/ms-searchzip/internal/domain    0.364s  coverage: 100.0% of statements
+ok      github.com/vs0uz4/observability/ms-inputvalidate/internal/domain    0.364s  coverage: 100.0% of statements
 === RUN   TestHealthHandlerGetHealth
 --- PASS: TestHealthHandlerGetHealth (0.00s)
 === RUN   TestHealthHandlerGetHealthErrorFromUseCase
@@ -60,7 +60,7 @@ ok      github.com/vs0uz4/observability/ms-searchzip/internal/domain    0.364s  
 --- PASS: TestGetLocationWeatherByCepInvalidJSON (0.00s)
 PASS
 coverage: 100.0% of statements
-ok      github.com/vs0uz4/observability/ms-searchzip/internal/infra/web 0.406s  coverage: 100.0% of statements
+ok      github.com/vs0uz4/observability/ms-inputvalidate/internal/infra/web 0.406s  coverage: 100.0% of statements
 === RUN   TestAddHandler
 --- PASS: TestAddHandler (0.00s)
 === RUN   TestWebServerLifecycle
@@ -102,7 +102,7 @@ ok      github.com/vs0uz4/observability/ms-searchzip/internal/infra/web 0.406s  
     --- PASS: TestWebServerErrorScenarios/Run_Start_Without_Error (0.00s)
 PASS
 coverage: 100.0% of statements
-ok      github.com/vs0uz4/observability/ms-searchzip/internal/infra/web/webserver       2.056s  coverage: 100.0% of statements
+ok      github.com/vs0uz4/observability/ms-inputvalidate/internal/infra/web/webserver       2.056s  coverage: 100.0% of statements
 === RUN   TestResponseRecorderWriteHeader
 === RUN   TestResponseRecorderWriteHeader/Non-200_status_with_no_bytes_written
 === RUN   TestResponseRecorderWriteHeader/200_status_with_no_bytes_written
@@ -127,7 +127,7 @@ ok      github.com/vs0uz4/observability/ms-searchzip/internal/infra/web/webserve
     --- PASS: TestErrorLogger/Does_Not_Log_for_200 (0.00s)
 PASS
 coverage: 100.0% of statements
-ok      github.com/vs0uz4/observability/ms-searchzip/internal/infra/web/webserver/middleware    0.711s  coverage: 100.0% of statements
+ok      github.com/vs0uz4/observability/ms-inputvalidate/internal/infra/web/webserver/middleware    0.711s  coverage: 100.0% of statements
 === RUN   TestGetCPUStats
 --- PASS: TestGetCPUStats (0.00s)
 === RUN   TestGetCPUStatsError
@@ -176,7 +176,7 @@ ok      github.com/vs0uz4/observability/ms-searchzip/internal/infra/web/webserve
     --- PASS: TestWeatherServiceGetWeatherData/123 (0.00s)
 PASS
 coverage: 100.0% of statements
-ok      github.com/vs0uz4/observability/ms-searchzip/internal/service   0.984s  coverage: 100.0% of statements
+ok      github.com/vs0uz4/observability/ms-inputvalidate/internal/service   0.984s  coverage: 100.0% of statements
 === RUN   TestMockHTTPClientDo
 --- PASS: TestMockHTTPClientDo (0.00s)
 === RUN   TestMockCPUService
@@ -187,7 +187,7 @@ ok      github.com/vs0uz4/observability/ms-searchzip/internal/service   0.984s  
 --- PASS: TestMockWeatherService (0.00s)
 PASS
 coverage: 100.0% of statements
-ok      github.com/vs0uz4/observability/ms-searchzip/internal/service/mock      1.049s  coverage: 100.0% of statements
+ok      github.com/vs0uz4/observability/ms-inputvalidate/internal/service/mock      1.049s  coverage: 100.0% of statements
 === RUN   TestGetHealth
 --- PASS: TestGetHealth (0.00s)
 === RUN   TestGetHealthCpuServiceError
@@ -212,7 +212,7 @@ ok      github.com/vs0uz4/observability/ms-searchzip/internal/service/mock      
     --- PASS: TestGetWeatherLocationByCep/Success (0.00s)
 PASS
 coverage: 100.0% of statements
-ok      github.com/vs0uz4/observability/ms-searchzip/internal/usecase   1.123s  coverage: 100.0% of statements
+ok      github.com/vs0uz4/observability/ms-inputvalidate/internal/usecase   1.123s  coverage: 100.0% of statements
 === RUN   TestMockHealthCheckUseCase
 --- PASS: TestMockHealthCheckUseCase (0.00s)
 === RUN   TestMockWeatherLocationByCepUsecase
@@ -227,7 +227,7 @@ ok      github.com/vs0uz4/observability/ms-searchzip/internal/usecase   1.123s  
     --- PASS: TestMockWeatherLocationByCepUsecase/Unexpected_Error_Failure (0.00s)
 PASS
 coverage: 100.0% of statements
-ok      github.com/vs0uz4/observability/ms-searchzip/internal/usecase/mock      1.281s  coverage: 100.0% of statements
-Calculating coverage for ms-searchzip...
-ms-searchzip Coverage: 88.4%
+ok      github.com/vs0uz4/observability/ms-inputvalidate/internal/usecase/mock      1.281s  coverage: 100.0% of statements
+Calculating coverage for ms-inputvalidate...
+ms-inputvalidate Coverage: 88.4%
 ```
