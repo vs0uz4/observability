@@ -12,6 +12,13 @@ import (
 	"github.com/go-chi/chi/v5"
 )
 
+type WeatherResponseSummary struct {
+	City  string  `json:"city"`
+	TempC float64 `json:"temp_C"`
+	TempF float64 `json:"temp_F"`
+	TempK float64 `json:"temp_K"`
+}
+
 type WeatherHandler struct {
 	Usecase contract.WeatherByCepUsecase
 }
@@ -20,6 +27,17 @@ func NewWeatherHandler(uc contract.WeatherByCepUsecase) *WeatherHandler {
 	return &WeatherHandler{Usecase: uc}
 }
 
+// GetWeatherByCep é o handler que consulta o (CEP), encontra a localidade e retorna o clima atual.
+// @Summary Consulta o clima atual de uma localidade a partir do CEP
+// @Description Consulta o clima atual de uma localidade a partir do CEP. Retorna a cidade e a temperatura atual em Celsius, Fahrenheit e Kelvin.
+// @Tags Weather
+// @Produce  json
+// @param cep path string true "CEP para buscar a temperatura"
+// @Success 200 {object} WeatherResponseSummary
+// @Failure 422 {string} string "invalid zipcode"
+// @Failure 404 {string} string "can not find zipcode"
+// @Failure 500 {string} string "internal server error"
+// @Router /weather/{cep} [get]
 func (h *WeatherHandler) GetWeatherByCep(w http.ResponseWriter, r *http.Request) {
 	cep := chi.URLParam(r, "cep")
 

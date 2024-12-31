@@ -1,0 +1,134 @@
+basePath: /
+definitions:
+  health.CPUStats:
+    properties:
+      cores:
+        type: integer
+      percent_used:
+        items:
+          type: number
+        type: array
+    type: object
+  health.HealthStats:
+    properties:
+      cpu:
+        $ref: '#/definitions/health.CPUStats'
+      duration:
+        type: string
+      memory:
+        $ref: '#/definitions/health.MemoryStats'
+      message:
+        type: string
+      status:
+        type: string
+      time:
+        type: string
+      uptime:
+        type: string
+    type: object
+  health.MemoryStats:
+    properties:
+      available:
+        type: integer
+      free:
+        type: integer
+      percent_used:
+        type: number
+      total:
+        type: integer
+      used:
+        type: integer
+    type: object
+  web.WeatherResponseSummary:
+    properties:
+      city:
+        type: string
+      temp_C:
+        type: number
+      temp_F:
+        type: number
+      temp_K:
+        type: number
+    type: object
+host: localhost:8001
+info:
+  contact:
+    email: me@vsouza.rio.br
+    name: Vitor Rodrigues
+    url: https://vsouza.rio.br/contact
+  description: This is a simple API that, on receiving a (zip code), performs a query
+    for the weather in that location.
+  license:
+    name: MIT
+    url: https://opensource.org/license/MIT
+  title: Weather Zip API
+  version: "1.0"
+paths:
+  /:
+    get:
+      description: Exibe a saudação "Enjoy the silence!"
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: Enjoy the silence!
+          schema:
+            type: string
+        "500":
+          description: Unable to write response
+          schema:
+            type: string
+      summary: Exibe uma saudação
+      tags:
+      - Root
+  /health:
+    get:
+      description: Retorna informações sobre a saúde do serviço, como uso de CPU,
+        memória e tempo de atividade
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/health.HealthStats'
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Retorna informações sobre a saúde do serviço
+      tags:
+      - Health
+  /weather/{cep}:
+    get:
+      description: Consulta o clima atual de uma localidade a partir do CEP. Retorna
+        a cidade e a temperatura atual em Celsius, Fahrenheit e Kelvin.
+      parameters:
+      - description: CEP para buscar a temperatura
+        in: path
+        name: cep
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/web.WeatherResponseSummary'
+        "404":
+          description: can not find zipcode
+          schema:
+            type: string
+        "422":
+          description: invalid zipcode
+          schema:
+            type: string
+        "500":
+          description: internal server error
+          schema:
+            type: string
+      summary: Consulta o clima atual de uma localidade a partir do CEP
+      tags:
+      - Weather
+swagger: "2.0"
