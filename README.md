@@ -146,13 +146,41 @@ Abaixo segue um exemplo de como será disponibilizado o `payload` na API
 
 Para executar as suites de testes de ambos os projetos, estando na pasta raiz, basta executar o seguinte comando:
 
-- Rodar script `run_tests.sh`
-
 ```shell
-❯ ./run_tests.sh
+❯ make tests
 ```
 
-> As suites de testes serão executadas e um relatórios contendo a informácão dos testes e taxa de cobertura dos testes de ambos os serviços serão apresentadas no seu console. Abaixo seguem os relatórios gerados mais recentes que disponibilizei.
+> As suítes de testes de ambos os projetos serão executadas e relatórios contendo informações tanto referente a execução quanto a taxa de cobertura dos testes serão apresentadas no console. Abaixo seguem os relatórios gerados mais recentes que disponibilizei.
+
+Você deverá ver em sua tela, algo parecido com as informações apresentadas abaixo:
+
+```plain-text
+❯ make tests
+Running tests for InputValidate...
+        github.com/vs0uz4/observability/ms-inputvalidate/cmd/inputvalidate              coverage: 0.0% of statements
+        github.com/vs0uz4/observability/ms-inputvalidate/doc/swagger                    coverage: 0.0% of statements
+        github.com/vs0uz4/observability/ms-inputvalidate/internal/infra/utils           coverage: 0.0% of statements
+?       github.com/vs0uz4/observability/ms-inputvalidate/internal/infra/web/health      [no test files]
+?       github.com/vs0uz4/observability/ms-inputvalidate/internal/service/contract      [no test files]
+?       github.com/vs0uz4/observability/ms-inputvalidate/internal/usecase/contract      [no test files]
+...
+```
+
+Caso você queira executar as suítes de testes apenas de um dos projetos, você também pode. Para isto basata você executar um dos comandos disponíveis abaixo:
+
+- Executando suíte de testes do ms-inputvalidate
+
+```shell
+❯ make test-inputvalidate
+```
+
+- Executando suíte de testes do ms-weatherzip
+
+```shell
+❯ make test-weatherzip
+```
+
+Abaixo seguem os relatórios de cobertura mais atuais que foram executados.
 
 - [ms-inputvalidate](./ms-inputvalidate/doc/COVERAGE.md)
 - [ms-weatherzip](./ms-weatherzip/doc/COVERAGE.md)
@@ -187,10 +215,10 @@ Na janela do terminal, você deverá ver uma mensagem parecida com o exemplo aba
 ```shell
 ❯ docker compose up -d
 [+] Running 5/5
- ✔ Container zipkin          Healthy                                  1.1s 
- ✔ Container jaeger-aio      Healthy                                  1.1s 
- ✔ Container ms-weatherzip   Started                                  11.3s 
- ✔ Container otel-collector  Healthy                                  11.0s 
+ ✔ Container zipkin              Healthy                                  1.1s 
+ ✔ Container jaeger-aio          Healthy                                  1.1s 
+ ✔ Container ms-weatherzip       Started                                  11.3s 
+ ✔ Container otel-collector      Healthy                                  11.0s 
  ✔ Container ms-inputvalidate    Started                                  11.0s 
 ```
 
@@ -207,7 +235,7 @@ Na janela do terminal, você deverá ver uma mensagem parecida com o exemplo aba
 ```shell
 ❯ docker compose down
 [+] Running 6/6
- ✔ Container ms-inputvalidate              Removed                        0.3s 
+ ✔ Container ms-inputvalidate          Removed                        0.3s 
  ✔ Container ms-weatherzip             Removed                        0.4s 
  ✔ Container otel-collector            Removed                        0.3s 
  ✔ Container zipkin                    Removed                        2.7s 

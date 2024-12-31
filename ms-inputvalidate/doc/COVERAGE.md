@@ -3,10 +3,13 @@
 Abaixo temos o `report` da cobertura dos testes implementados no InputValidate (SERVIÇO A)
 
 ```plain-text
-Running tests for ms-inputvalidate...
+Running tests for InputValidate...
         github.com/vs0uz4/observability/ms-inputvalidate/cmd/inputvalidate              coverage: 0.0% of statements
+        github.com/vs0uz4/observability/ms-inputvalidate/doc/swagger            coverage: 0.0% of statements
         github.com/vs0uz4/observability/ms-inputvalidate/internal/infra/utils           coverage: 0.0% of statements
 ?       github.com/vs0uz4/observability/ms-inputvalidate/internal/infra/web/health      [no test files]
+?       github.com/vs0uz4/observability/ms-inputvalidate/internal/service/contract      [no test files]
+?       github.com/vs0uz4/observability/ms-inputvalidate/internal/usecase/contract      [no test files]
 === RUN   TestLoadConfigReadInConfigFails
 --- PASS: TestLoadConfigReadInConfigFails (0.00s)
 === RUN   TestLoadConfigPanicOnUnmarshalError
@@ -18,7 +21,7 @@ Running tests for ms-inputvalidate...
 --- PASS: TestLoadConfig (0.00s)
 PASS
 coverage: 100.0% of statements
-ok      github.com/vs0uz4/observability/ms-inputvalidate/config 0.360s  coverage: 100.0% of statements
+ok      github.com/vs0uz4/observability/ms-inputvalidate/config 0.701s  coverage: 100.0% of statements
 === RUN   TestNewUnexpectedStatusCodeError
 --- PASS: TestNewUnexpectedStatusCodeError (0.00s)
 === RUN   TestNewUnexpectedWeatherServiceError
@@ -31,9 +34,7 @@ ok      github.com/vs0uz4/observability/ms-inputvalidate/config 0.360s  coverage
 --- PASS: TestNewFailedToDecodeResponseError (0.00s)
 PASS
 coverage: 100.0% of statements
-ok      github.com/vs0uz4/observability/ms-inputvalidate/internal/domain        0.180s  coverage: 100.0% of statements
-?       github.com/vs0uz4/observability/ms-inputvalidate/internal/service/contract      [no test files]
-?       github.com/vs0uz4/observability/ms-inputvalidate/internal/usecase/contract      [no test files]
+ok      github.com/vs0uz4/observability/ms-inputvalidate/internal/domain        0.520s  coverage: 100.0% of statements
 === RUN   TestHealthHandlerGetHealth
 --- PASS: TestHealthHandlerGetHealth (0.00s)
 === RUN   TestHealthHandlerGetHealthErrorFromUseCase
@@ -60,7 +61,7 @@ ok      github.com/vs0uz4/observability/ms-inputvalidate/internal/domain        
 --- PASS: TestGetLocationWeatherByCepInvalidJSON (0.00s)
 PASS
 coverage: 100.0% of statements
-ok      github.com/vs0uz4/observability/ms-inputvalidate/internal/infra/web     0.293s  coverage: 100.0% of statements
+ok      github.com/vs0uz4/observability/ms-inputvalidate/internal/infra/web     0.610s  coverage: 100.0% of statements
 === RUN   TestAddHandler
 --- PASS: TestAddHandler (0.00s)
 === RUN   TestWebServerLifecycle
@@ -83,7 +84,7 @@ ok      github.com/vs0uz4/observability/ms-inputvalidate/internal/infra/web     
 --- PASS: TestAddHandlerWithDuplicateMethods (0.00s)
 === RUN   TestInvalidMethods
 === RUN   TestInvalidMethods/Invalid_Method
-2024/12/31 09:39:24 "INVALID /test HTTP/1.1" from [::1]:62188 - 405 0B in 22.417µs - Error: 
+2024/12/31 15:36:02 "INVALID /test HTTP/1.1" from [::1]:57051 - 405 0B in 3.458µs - Error: 
 --- PASS: TestInvalidMethods (0.50s)
     --- PASS: TestInvalidMethods/Invalid_Method (0.00s)
 === RUN   TestWebServerStop
@@ -102,7 +103,7 @@ ok      github.com/vs0uz4/observability/ms-inputvalidate/internal/infra/web     
     --- PASS: TestWebServerErrorScenarios/Run_Start_Without_Error (0.00s)
 PASS
 coverage: 100.0% of statements
-ok      github.com/vs0uz4/observability/ms-inputvalidate/internal/infra/web/webserver   1.965s  coverage: 100.0% of statements
+ok      github.com/vs0uz4/observability/ms-inputvalidate/internal/infra/web/webserver   2.268s  coverage: 100.0% of statements
 === RUN   TestResponseRecorderWriteHeader
 === RUN   TestResponseRecorderWriteHeader/Non-200_status_with_no_bytes_written
 === RUN   TestResponseRecorderWriteHeader/200_status_with_no_bytes_written
@@ -127,7 +128,7 @@ ok      github.com/vs0uz4/observability/ms-inputvalidate/internal/infra/web/webs
     --- PASS: TestErrorLogger/Does_Not_Log_for_200 (0.00s)
 PASS
 coverage: 100.0% of statements
-ok      github.com/vs0uz4/observability/ms-inputvalidate/internal/infra/web/webserver/middleware        0.619s  coverage: 100.0% of statements
+ok      github.com/vs0uz4/observability/ms-inputvalidate/internal/infra/web/webserver/middleware        0.932s  coverage: 100.0% of statements
 === RUN   TestGetCPUStats
 --- PASS: TestGetCPUStats (0.00s)
 === RUN   TestGetCPUStatsError
@@ -176,7 +177,7 @@ ok      github.com/vs0uz4/observability/ms-inputvalidate/internal/infra/web/webs
     --- PASS: TestWeatherServiceGetWeatherData/123 (0.00s)
 PASS
 coverage: 100.0% of statements
-ok      github.com/vs0uz4/observability/ms-inputvalidate/internal/service       0.824s  coverage: 100.0% of statements
+ok      github.com/vs0uz4/observability/ms-inputvalidate/internal/service       1.214s  coverage: 100.0% of statements
 === RUN   TestMockHTTPClientDo
 --- PASS: TestMockHTTPClientDo (0.00s)
 === RUN   TestMockCPUService
@@ -187,7 +188,7 @@ ok      github.com/vs0uz4/observability/ms-inputvalidate/internal/service       
 --- PASS: TestMockWeatherService (0.00s)
 PASS
 coverage: 100.0% of statements
-ok      github.com/vs0uz4/observability/ms-inputvalidate/internal/service/mock  0.886s  coverage: 100.0% of statements
+ok      github.com/vs0uz4/observability/ms-inputvalidate/internal/service/mock  1.270s  coverage: 100.0% of statements
 === RUN   TestGetHealth
 --- PASS: TestGetHealth (0.00s)
 === RUN   TestGetHealthCpuServiceError
@@ -212,7 +213,7 @@ ok      github.com/vs0uz4/observability/ms-inputvalidate/internal/service/mock  
     --- PASS: TestGetWeatherLocationByCep/Success (0.00s)
 PASS
 coverage: 100.0% of statements
-ok      github.com/vs0uz4/observability/ms-inputvalidate/internal/usecase       0.931s  coverage: 100.0% of statements
+ok      github.com/vs0uz4/observability/ms-inputvalidate/internal/usecase       1.223s  coverage: 100.0% of statements
 === RUN   TestMockHealthCheckUseCase
 --- PASS: TestMockHealthCheckUseCase (0.00s)
 === RUN   TestMockWeatherLocationByCepUsecase
@@ -227,7 +228,52 @@ ok      github.com/vs0uz4/observability/ms-inputvalidate/internal/usecase       
     --- PASS: TestMockWeatherLocationByCepUsecase/Unexpected_Error_Failure (0.00s)
 PASS
 coverage: 100.0% of statements
-ok      github.com/vs0uz4/observability/ms-inputvalidate/internal/usecase/mock  1.096s  coverage: 100.0% of statements
-Calculating coverage for ms-inputvalidate...
-ms-inputvalidate Coverage: 88.4%
+ok      github.com/vs0uz4/observability/ms-inputvalidate/internal/usecase/mock  1.397s  coverage: 100.0% of statements
+github.com/vs0uz4/observability/ms-inputvalidate/cmd/inputvalidate/main.go:29:                                  main                                    0.0%
+github.com/vs0uz4/observability/ms-inputvalidate/cmd/inputvalidate/main.go:67:                                  enjoy                                   0.0%
+github.com/vs0uz4/observability/ms-inputvalidate/config/config.go:15:                                           LoadConfig                              100.0%
+github.com/vs0uz4/observability/ms-inputvalidate/doc/swagger/docs.go:232:                                       init                                    0.0%
+github.com/vs0uz4/observability/ms-inputvalidate/internal/domain/errors.go:34:                                  NewUnexpectedStatusCodeError            100.0%
+github.com/vs0uz4/observability/ms-inputvalidate/internal/domain/errors.go:38:                                  NewUnexpectedWeatherServiceError        100.0%
+github.com/vs0uz4/observability/ms-inputvalidate/internal/domain/errors.go:42:                                  NewFailedToCreateRequestError           100.0%
+github.com/vs0uz4/observability/ms-inputvalidate/internal/domain/errors.go:46:                                  NewFailedToMakeRequestError             100.0%
+github.com/vs0uz4/observability/ms-inputvalidate/internal/domain/errors.go:50:                                  NewFailedToDecodeResponseError          100.0%
+github.com/vs0uz4/observability/ms-inputvalidate/internal/infra/utils/validations_utils.go:3:                   IsNumeric                               100.0%
+github.com/vs0uz4/observability/ms-inputvalidate/internal/infra/web/health_handler.go:14:                       NewHealthHandler                        100.0%
+github.com/vs0uz4/observability/ms-inputvalidate/internal/infra/web/health_handler.go:26:                       GetHealth                               100.0%
+github.com/vs0uz4/observability/ms-inputvalidate/internal/infra/web/input_handler.go:21:                        NewInputHandler                         100.0%
+github.com/vs0uz4/observability/ms-inputvalidate/internal/infra/web/input_handler.go:37:                        GetLocationWeatherByCep                 100.0%
+github.com/vs0uz4/observability/ms-inputvalidate/internal/infra/web/webserver/middleware/error_logger.go:16:    WriteHeader                             100.0%
+github.com/vs0uz4/observability/ms-inputvalidate/internal/infra/web/webserver/middleware/error_logger.go:24:    Write                                   100.0%
+github.com/vs0uz4/observability/ms-inputvalidate/internal/infra/web/webserver/middleware/error_logger.go:30:    ReadError                               100.0%
+github.com/vs0uz4/observability/ms-inputvalidate/internal/infra/web/webserver/middleware/error_logger.go:34:    WriteError                              100.0%
+github.com/vs0uz4/observability/ms-inputvalidate/internal/infra/web/webserver/middleware/error_logger.go:38:    ErrorLogger                             100.0%
+github.com/vs0uz4/observability/ms-inputvalidate/internal/infra/web/webserver/server.go:24:                     NewWebServer                            100.0%
+github.com/vs0uz4/observability/ms-inputvalidate/internal/infra/web/webserver/server.go:45:                     setupDependencies                       100.0%
+github.com/vs0uz4/observability/ms-inputvalidate/internal/infra/web/webserver/server.go:49:                     AddHandler                              100.0%
+github.com/vs0uz4/observability/ms-inputvalidate/internal/infra/web/webserver/server.go:57:                     Start                                   100.0%
+github.com/vs0uz4/observability/ms-inputvalidate/internal/infra/web/webserver/server.go:80:                     Run                                     100.0%
+github.com/vs0uz4/observability/ms-inputvalidate/internal/infra/web/webserver/server.go:90:                     Stop                                    100.0%
+github.com/vs0uz4/observability/ms-inputvalidate/internal/service/cpu_stats.go:19:                              NewCPUService                           100.0%
+github.com/vs0uz4/observability/ms-inputvalidate/internal/service/cpu_stats.go:25:                              roundToOneDecimal                       100.0%
+github.com/vs0uz4/observability/ms-inputvalidate/internal/service/cpu_stats.go:29:                              GetCPUStats                             100.0%
+github.com/vs0uz4/observability/ms-inputvalidate/internal/service/memory_stats.go:17:                           NewMemoryService                        100.0%
+github.com/vs0uz4/observability/ms-inputvalidate/internal/service/memory_stats.go:23:                           roundToOneDecimal                       100.0%
+github.com/vs0uz4/observability/ms-inputvalidate/internal/service/memory_stats.go:27:                           GetMemoryStats                          100.0%
+github.com/vs0uz4/observability/ms-inputvalidate/internal/service/mock/http_client.go:11:                       Do                                      100.0%
+github.com/vs0uz4/observability/ms-inputvalidate/internal/service/mock/mock_cpu_stats.go:7:                     GetCPUStats                             100.0%
+github.com/vs0uz4/observability/ms-inputvalidate/internal/service/mock/mock_memory_stats.go:7:                  GetMemoryStats                          100.0%
+github.com/vs0uz4/observability/ms-inputvalidate/internal/service/mock/mock_weather.go:9:                       GetWeather                              100.0%
+github.com/vs0uz4/observability/ms-inputvalidate/internal/service/uptime.go:13:                                 NewUptimeService                        100.0%
+github.com/vs0uz4/observability/ms-inputvalidate/internal/service/uptime.go:19:                                 GetUptime                               100.0%
+github.com/vs0uz4/observability/ms-inputvalidate/internal/service/weather.go:29:                                NewWeatherService                       100.0%
+github.com/vs0uz4/observability/ms-inputvalidate/internal/service/weather.go:36:                                GetWeather                              100.0%
+github.com/vs0uz4/observability/ms-inputvalidate/internal/service/weather.go:62:                                parseErrorResponse                      100.0%
+github.com/vs0uz4/observability/ms-inputvalidate/internal/usecase/health_check.go:20:                           NewHealthCheckUseCase                   100.0%
+github.com/vs0uz4/observability/ms-inputvalidate/internal/usecase/health_check.go:24:                           GetHealth                               100.0%
+github.com/vs0uz4/observability/ms-inputvalidate/internal/usecase/mock/mock_health_check.go:9:                  GetHealth                               100.0%
+github.com/vs0uz4/observability/ms-inputvalidate/internal/usecase/mock/mock_weather-location_by_cep.go:11:      GetWeatherLocationByCep                 100.0%
+github.com/vs0uz4/observability/ms-inputvalidate/internal/usecase/weather-location_by_cep.go:13:                NewWeatherLocationByCepUsecase          100.0%
+github.com/vs0uz4/observability/ms-inputvalidate/internal/usecase/weather-location_by_cep.go:19:                GetWeatherLocationByCep                 100.0%
+total:                                                                                                          (statements)                            88.1%
 ```
