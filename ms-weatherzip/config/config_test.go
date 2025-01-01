@@ -20,6 +20,7 @@ func TestLoadConfigReadInConfigFails(t *testing.T) {
 func TestLoadConfigPanicOnUnmarshalError(t *testing.T) {
 	envContent := `
 WEB_SERVER_PORT='8080'
+ZIPKIN_URL=http://example.com:9411/api/v2/spans
 CEP_API_URL=https://api.example.com.br/ws/json/
 WEATHER_API_URL=https://api.example.com.br/v1/
 WEATHER_API_KEY=123456
@@ -51,6 +52,7 @@ WEATHER_LANGUAGE=pt
 func TestLoadConfigMissingRequiredConfigFails(t *testing.T) {
 	envContent := `
 WEB_SERVER_PORT='8080'
+ZIPKIN_URL=http://example.com:9411/api/v2/spans
 CEP_API_URL=https://api.example.com.br/ws/json/
 WEATHER_API_URL=https://api.example.com.br/v1/
 WEATHER_API_KEY=
@@ -69,6 +71,7 @@ WEATHER_LANGUAGE=pt
 func TestLoadConfig(t *testing.T) {
 	envContent := `
 WEB_SERVER_PORT=8080
+ZIPKIN_URL=http://example.com:9411/api/v2/spans
 CEP_API_URL=http://example.com/cep
 WEATHER_API_URL=http://example.com/weather
 WEATHER_API_KEY=testkey
@@ -84,6 +87,7 @@ WEATHER_LANGUAGE=en
 	assert.NotNil(t, cfg)
 
 	assert.Equal(t, "8080", cfg.WebServerPort)
+	assert.Equal(t, "http://example.com:9411/api/v2/spans", cfg.ZipKinUrl)
 	assert.Equal(t, "http://example.com/cep", cfg.CepAPIUrl)
 	assert.Equal(t, "http://example.com/weather", cfg.WeatherAPIUrl)
 	assert.Equal(t, "testkey", cfg.WeatherAPIKey)
