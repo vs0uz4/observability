@@ -14,16 +14,13 @@ RUN apt-get update && \
 
 WORKDIR /app
 
-COPY go.mod go.sum ./
+COPY ./pkg /app/pkg
+COPY ./ms-weatherzip /app/ms-weatherzip
 
-RUN go mod download
+WORKDIR /app/ms-weatherzip
 
-COPY ./cmd      /app/cmd
-COPY ./config   /app/config
-COPY ./doc/swagger /app/doc/swagger
-COPY ./internal /app/internal
-
-RUN mv /app/cmd/weatherzip/.env /app/.env && \
+RUN go mod download && \
+    mv /app/ms-weatherzip/cmd/weatherzip/.env /app/ms-weatherzip/.env && \
 	CGO_ENABLED=0 GOOS=linux go build -o weatherzipapp ./cmd/weatherzip
 
 FROM scratch
@@ -31,8 +28,8 @@ FROM scratch
 COPY --from=builder /etc/passwd /etc/passwd
 USER weatherzip
 
-COPY --from=builder /app/.env .
-COPY --from=builder /app/weatherzipapp .
+COPY --from=builder /app/ms-weatherzip/.env .
+COPY --from=builder /app/ms-weatherzip/weatherzipapp .
 COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
 COPY --from=builder /usr/share/zoneinfo/America/Sao_Paulo /usr/share/zoneinfo/America/Sao_Paulo
 
