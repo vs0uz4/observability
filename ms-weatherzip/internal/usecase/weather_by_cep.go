@@ -1,8 +1,12 @@
 package usecase
 
 import (
+	"context"
+
 	"github.com/vs0uz4/observability/ms-weatherzip/internal/domain"
 	"github.com/vs0uz4/observability/ms-weatherzip/internal/service/contract"
+	"go.opentelemetry.io/otel"
+	"go.opentelemetry.io/otel/attribute"
 )
 
 type weatherByCepUsecase struct {
@@ -17,18 +21,26 @@ func NewWeatherByCepUsecase(cepService contract.CepService, weatherService contr
 	}
 }
 
-func (uc *weatherByCepUsecase) GetWeatherByCep(cep string) (domain.WeatherResponse, error) {
+func (uc *weatherByCepUsecase) GetWeatherByCep(ctx context.Context, cep string) (domain.WeatherResponse, error) {
+	tracer := otel.Tracer("ms-weatherzip")
+	ctx, span := tracer.Start(ctx, "GetWeatherByCep")
+	span.SetAttributes(attribute.String("cep", cep))
+	defer span.End()
+
 	if len(cep) != 8 || !isNumeric(cep) {
+		span.RecordError(domain.ErrInvalidZipcode)
 		return domain.WeatherResponse{}, domain.ErrInvalidZipcode
 	}
 
-	location, err := uc.CepService.GetLocation(cep)
+	location, err := uc.CepService.GetLocation(ctx, cep)
 	if err != nil {
+		span.RecordError(err)
 		return domain.WeatherResponse{}, err
 	}
 
-	weather, err := uc.WeatherService.GetWeather(location.Localidade)
+	weather, err := uc.WeatherService.GetWeather(ctx, location.Localidade)
 	if err != nil {
+		span.RecordError(err)
 		return domain.WeatherResponse{}, err
 	}
 

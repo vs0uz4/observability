@@ -1,6 +1,7 @@
 package usecase
 
 import (
+	"context"
 	"errors"
 	"testing"
 
@@ -67,7 +68,7 @@ func TestGetWeatherByCep(t *testing.T) {
 			inputCep: "99999999",
 			mockCepSvc: func() *mock.MockCepService {
 				return &mock.MockCepService{
-					GetLocationFunc: func(cep string) (domain.CepResponse, error) {
+					GetLocationFunc: func(ctx context.Context, cep string) (domain.CepResponse, error) {
 						return domain.CepResponse{}, domain.ErrZipcodeNotFound
 					},
 				}
@@ -82,7 +83,7 @@ func TestGetWeatherByCep(t *testing.T) {
 			inputCep: "12345678",
 			mockCepSvc: func() *mock.MockCepService {
 				return &mock.MockCepService{
-					GetLocationFunc: func(cep string) (domain.CepResponse, error) {
+					GetLocationFunc: func(ctx context.Context, cep string) (domain.CepResponse, error) {
 						return domain.CepResponse{
 							Localidade: "City",
 							Uf:         "State",
@@ -92,7 +93,7 @@ func TestGetWeatherByCep(t *testing.T) {
 			},
 			mockWeatherSvc: func() *mock.MockWeatherService {
 				return &mock.MockWeatherService{
-					GetWeatherFunc: func(location string) (domain.WeatherResponse, error) {
+					GetWeatherFunc: func(ctx context.Context, location string) (domain.WeatherResponse, error) {
 						return domain.WeatherResponse{}, domain.ErrWeatherService
 					},
 				}
@@ -104,7 +105,7 @@ func TestGetWeatherByCep(t *testing.T) {
 			inputCep: "12345678",
 			mockCepSvc: func() *mock.MockCepService {
 				return &mock.MockCepService{
-					GetLocationFunc: func(cep string) (domain.CepResponse, error) {
+					GetLocationFunc: func(ctx context.Context, cep string) (domain.CepResponse, error) {
 						return domain.CepResponse{
 							Localidade: "City",
 							Uf:         "State",
@@ -114,7 +115,7 @@ func TestGetWeatherByCep(t *testing.T) {
 			},
 			mockWeatherSvc: func() *mock.MockWeatherService {
 				return &mock.MockWeatherService{
-					GetWeatherFunc: func(location string) (domain.WeatherResponse, error) {
+					GetWeatherFunc: func(ctx context.Context, location string) (domain.WeatherResponse, error) {
 						return domain.WeatherResponse{
 							Current: domain.CurrentWeather{
 								TempC: 25.0,
@@ -138,7 +139,8 @@ func TestGetWeatherByCep(t *testing.T) {
 				WeatherService: tt.mockWeatherSvc(),
 			}
 
-			result, err := usecase.GetWeatherByCep(tt.inputCep)
+			ctx := context.Background()
+			result, err := usecase.GetWeatherByCep(ctx, tt.inputCep)
 
 			if !errors.Is(err, tt.expectErr) {
 				t.Errorf("Expected error %v, got %v", tt.expectErr, err)
