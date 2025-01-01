@@ -13,6 +13,9 @@
       - [Suite de Testes](#suite-de-testes)
       - [Documentação da API](#documentação-da-api)
     - [Executando os Serviços](#executando-os-serviços)
+    - [Obversabilidade com Open Telemetry + Zipkin](#obversabilidade-com-open-telemetry--zipkin)
+      - [Dependencias](#dependencias)
+      - [Traces Distribuidos](#traces-distribuidos)
     - [Informações da API](#informações-da-api)
       - [Rotas](#rotas)
       - [Consultando Temperaturas](#consultando-temperaturas)
@@ -185,14 +188,6 @@ Abaixo seguem os relatórios de cobertura mais atuais que foram executados.
 - [ms-inputvalidate](./ms-inputvalidate/doc/COVERAGE.md)
 - [ms-weatherzip](./ms-weatherzip/doc/COVERAGE.md)
 
-Resumo do relatório executado
-
-```plain-text
----------------------------------------------------------------------------------------------------------------------
-All tests completed.
-Overall Coverage: 89.40%
-```
-
 #### Documentação da API
 
 Adicionei também a documentação da API utilizando o Swagger, desta forma os `endpoints` de ambos os serviços podem ser testados também diretamente do navegador, através das suas respectivas rotas. Para acessar a documentação dos serviços, basta acessa as seguintes URL's abaixo:
@@ -214,12 +209,11 @@ Na janela do terminal, você deverá ver uma mensagem parecida com o exemplo aba
 
 ```shell
 ❯ docker compose up -d
-[+] Running 5/5
- ✔ Container zipkin              Healthy                                  1.1s 
- ✔ Container jaeger-aio          Healthy                                  1.1s 
- ✔ Container ms-weatherzip       Started                                  11.3s 
- ✔ Container otel-collector      Healthy                                  11.0s 
- ✔ Container ms-inputvalidate    Started                                  11.0s 
+[+] Running 4/4
+ ✔ Network observability_default  Created                         0.0s 
+ ✔ Container zipkin               Healthy                         3.1s 
+ ✔ Container ms-weatherzip        Started                         2.8s 
+ ✔ Container ms-inputvalidate     Started                         2.8s
 ```
 
 - Encerrando os serviços
@@ -234,14 +228,22 @@ Na janela do terminal, você deverá ver uma mensagem parecida com o exemplo aba
 
 ```shell
 ❯ docker compose down
-[+] Running 6/6
- ✔ Container ms-inputvalidate          Removed                        0.3s 
- ✔ Container ms-weatherzip             Removed                        0.4s 
- ✔ Container otel-collector            Removed                        0.3s 
- ✔ Container zipkin                    Removed                        2.7s 
- ✔ Container jaeger-aio                Removed                        0.2s 
- ✔ Network observability_otel_default  Removed                        0.1s 
+[+] Running 4/4
+ ✔ Container ms-inputvalidate     Removed                           0.2s 
+ ✔ Container ms-weatherzip        Removed                           0.1s 
+ ✔ Container zipkin               Removed                           2.6s 
+ ✔ Network observability_default  Removed                           0.1s 
 ```
+
+### Obversabilidade com Open Telemetry + Zipkin
+
+Conforme solicitado, implementamos nos fluxos dos serviços, `traces` de forma que tivéssemos informações detalhadas sobre os fluxos, pudessemos medir o tempo de resposta de cada parte, além de facilitar na maunutenção na hora de debugar. A Interface do Zipkin está disponível no endereço `http://localhost:9411/zipkin/` e através dela podemos consultar e analizar os `traces` implementados. Abaixo seguem algumas telas como evidências do funcionamento dos traces distribuidos.
+
+#### Dependencias
+![Dependencies](.doc/zipking_dependencies.png)
+
+#### Traces Distribuidos
+![Distributed Traces](.doc/zipkin_distributed_traces.png)
 
 ### Informações da API
 
