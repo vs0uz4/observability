@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 
 	httpSwagger "github.com/swaggo/http-swagger"
@@ -11,6 +12,8 @@ import (
 	"github.com/vs0uz4/observability/ms-weatherzip/internal/infra/web/webserver"
 	"github.com/vs0uz4/observability/ms-weatherzip/internal/service"
 	"github.com/vs0uz4/observability/ms-weatherzip/internal/usecase"
+	"github.com/vs0uz4/observability/pkg/tracing"
+	"go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp"
 )
 
 // @title Weather Zip API
@@ -32,7 +35,15 @@ func main() {
 		panic(err)
 	}
 
-	httpClient := &http.Client{}
+	traceProvider, err := tracing.InitTracer("ms-weatherzip", cfg.ZipKinUrl)
+	if err != nil {
+		log.Fatalf("failed to initialize tracer: %v", err)
+	}
+	defer tracing.ShutdownTracer(traceProvider)
+
+	httpClient := &http.Client{
+		Transport: otelhttp.NewTransport(http.DefaultTransport),
+	}
 
 	cpuService := service.NewCPUService()
 	memoryService := service.NewMemoryService()
