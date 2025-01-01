@@ -1,7 +1,11 @@
 package contract
 
-import "github.com/vs0uz4/observability/ms-inputvalidate/internal/domain"
+import (
+	"context"
+
+	"github.com/vs0uz4/observability/ms-inputvalidate/internal/domain"
+)
 
 type WeatherService interface {
-	GetWeather(cep string) (domain.WeatherResponse, error)
+	GetWeather(ctx context.Context, cep string) (domain.WeatherResponse, error)
 }
