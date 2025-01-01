@@ -60,3 +60,13 @@ func TestNewFailedToDecodeResponseError(t *testing.T) {
 		t.Errorf("Expected error message %q, got %q", expectedMessage, err.Error())
 	}
 }
+
+func TestNewInvalidZipCodeDetailsError(t *testing.T) {
+	zipCode := "123"
+	expectedMessage := fmt.Sprintf("invalid zipcode: %s", zipCode)
+	err := NewInvalidZipCodeDetailsError(zipCode)
+
+	if err.Error() != expectedMessage {
+		t.Errorf("Expected error message %q, got %q", expectedMessage, err.Error())
+	}
+}

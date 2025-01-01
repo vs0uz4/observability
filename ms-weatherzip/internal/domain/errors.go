@@ -29,6 +29,10 @@ func NewUnexpectedStatusCodeError(statusCode int) error {
 	return fmt.Errorf("unexpected status code: %d", statusCode)
 }
 
+func NewInvalidZipCodeDetailsError(zipCode string) error {
+	return fmt.Errorf("invalid zipcode: %s", zipCode)
+}
+
 func NewFailedToCreateRequestError(err error) error {
 	return fmt.Errorf("failed to create request: %w", err)
 }
@@ -39,4 +43,8 @@ func NewFailedToMakeRequestError(err error) error {
 
 func NewFailedToDecodeResponseError(err error) error {
 	return fmt.Errorf("failed to decode response: %w", err)
+}
+
+func NewFailedToMapResponseError(err error) error {
+	return fmt.Errorf("failed to map response: %w", err)
 }
