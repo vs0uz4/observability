@@ -14,16 +14,13 @@ RUN apt-get update && \
 
 WORKDIR /app
 
-COPY go.mod go.sum ./
+COPY ./pkg /app/pkg
+COPY ./ms-inputvalidate /app/ms-inputvalidate
 
-RUN go mod download
+WORKDIR /app/ms-inputvalidate
 
-COPY ./cmd      /app/cmd
-COPY ./config   /app/config
-COPY ./doc/swagger /app/doc/swagger
-COPY ./internal /app/internal
-
-RUN mv /app/cmd/inputvalidate/.env /app/.env && \
+RUN go mod download && \
+    mv /app/ms-inputvalidate/cmd/inputvalidate/.env /app/ms-inputvalidate/.env && \
 	CGO_ENABLED=0 GOOS=linux go build -o inputvalidateapp ./cmd/inputvalidate
 
 FROM scratch
@@ -31,8 +28,8 @@ FROM scratch
 COPY --from=builder /etc/passwd /etc/passwd
 USER inputvalidate
 
-COPY --from=builder /app/.env .
-COPY --from=builder /app/inputvalidateapp .
+COPY --from=builder /app/ms-inputvalidate/.env .
+COPY --from=builder /app/ms-inputvalidate/inputvalidateapp .
 COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
 COPY --from=builder /usr/share/zoneinfo/America/Sao_Paulo /usr/share/zoneinfo/America/Sao_Paulo
 

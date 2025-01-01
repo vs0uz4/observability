@@ -16,54 +16,11 @@ services:
       timeout: 5s
       retries: 3
 
-  jaeger-aio:
-    container_name: jaeger-aio
-    image: jaegertracing/all-in-one:latest
-    restart: always
-    ports:
-      - "16686:16686"
-      - "14268"
-      - "14250"
-    healthcheck:
-      test:
-        [
-          "CMD-SHELL",
-          "wget --spider --no-verbose --tries=1 --timeout=5 http://localhost:16686 || exit 1",
-        ]
-      start_interval: 2s
-      interval: 10s
-      timeout: 5s
-      retries: 3
-
-  otel-collector:
-    container_name: otel-collector
-    build:
-      context: ./.docker/opentelemetry-collector
-      dockerfile: Dockerfile
-    restart: always
-    command: ["--config=/etc/otel-collector-config.yaml"]
-    volumes:
-      - ./.docker/opentelemetry-collector/config.yaml:/etc/otel-collector-config.yaml
-    ports:
-      - "4317:4317"
-      - "55679:55679"
-      - "13133:13133"
-    healthcheck:
-      test:
-        [
-          "CMD-SHELL",
-          "wget --spider --no-verbose --tries=1 --timeout=5 http://localhost:13133/health || exit 1",
-        ]
-      start_interval: 2s
-      interval: 10s
-      timeout: 5s
-      retries: 3
-
   weatherzip:
     container_name: ms-weatherzip
     build:
-      context: ./ms-weatherzip
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ./ms-weatherzip/Dockerfile
     restart: always
     ports:
       - "8001:8001"
@@ -72,16 +29,12 @@ services:
     depends_on:
       zipkin:
         condition: service_healthy
-      jaeger-aio:
-        condition: service_healthy
-      otel-collector:
-        condition: service_healthy
   
   inputvalidate:
     container_name: ms-inputvalidate
     build:
-      context: ./ms-inputvalidate
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ./ms-inputvalidate/Dockerfile
     restart: always
     ports:
       - "8000:8000"
@@ -90,7 +43,3 @@ services:
     depends_on:
       zipkin:
        condition: service_healthy
-      jaeger-aio:
-        condition: service_healthy
-      otel-collector:
-        condition: service_healthy

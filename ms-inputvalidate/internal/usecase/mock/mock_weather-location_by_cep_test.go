@@ -1,6 +1,7 @@
 package mock
 
 import (
+	"context"
 	"testing"
 
 	"github.com/vs0uz4/observability/ms-inputvalidate/internal/domain"
@@ -8,7 +9,7 @@ import (
 
 func TestMockWeatherLocationByCepUsecase(t *testing.T) {
 	mockUsecase := &MockWeatherLocationByCepUsecase{
-		GetWeatherLocationByCepFunc: func(cep string) (domain.WeatherResponse, error) {
+		GetWeatherLocationByCepFunc: func(ctx context.Context, cep string) (domain.WeatherResponse, error) {
 			switch cep {
 			case "12345678":
 				return domain.WeatherResponse{
@@ -27,8 +28,10 @@ func TestMockWeatherLocationByCepUsecase(t *testing.T) {
 		},
 	}
 
+	ctx := context.Background()
+
 	t.Run("Success", func(t *testing.T) {
-		resp, err := mockUsecase.GetWeatherLocationByCep("12345678")
+		resp, err := mockUsecase.GetWeatherLocationByCep(ctx, "12345678")
 		if err != nil {
 			t.Errorf("Unexpected error: %v", err)
 		}
@@ -51,21 +54,21 @@ func TestMockWeatherLocationByCepUsecase(t *testing.T) {
 	})
 
 	t.Run("Invalid ZipCode Failure", func(t *testing.T) {
-		_, err := mockUsecase.GetWeatherLocationByCep("123")
+		_, err := mockUsecase.GetWeatherLocationByCep(ctx, "123")
 		if err == nil || err.Error() != "invalid zipcode" {
 			t.Errorf("Expected error 'invalid zipcode', got %v", err)
 		}
 	})
 
 	t.Run("ZipCode Not Found Failure", func(t *testing.T) {
-		_, err := mockUsecase.GetWeatherLocationByCep("87654321")
+		_, err := mockUsecase.GetWeatherLocationByCep(ctx, "87654321")
 		if err == nil || err.Error() != "zipcode not found" {
 			t.Errorf("Expected error 'zipcode not found', got %v", err)
 		}
 	})
 
 	t.Run("Unexpected Error Failure", func(t *testing.T) {
-		_, err := mockUsecase.GetWeatherLocationByCep("00000000")
+		_, err := mockUsecase.GetWeatherLocationByCep(ctx, "00000000")
 		if err == nil || err.Error() != "internal server error" {
 			t.Errorf("Expected error 'internal server error', got %v", err)
 		}

@@ -50,3 +50,7 @@ func NewFailedToMakeRequestError(err error) error {
 func NewFailedToDecodeResponseError(err error) error {
 	return fmt.Errorf("failed to decode response: %w", err)
 }
+
+func NewInvalidZipCodeDetailsError(zipCode string) error {
+	return fmt.Errorf("invalid zipcode: %s", zipCode)
+}

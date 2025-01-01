@@ -3,11 +3,15 @@ package web
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"net/http"
 
 	"github.com/vs0uz4/observability/ms-weatherzip/internal/domain"
 	"github.com/vs0uz4/observability/ms-weatherzip/internal/infra/web/webserver/middleware"
 	"github.com/vs0uz4/observability/ms-weatherzip/internal/usecase/contract"
+	"go.opentelemetry.io/otel"
+	"go.opentelemetry.io/otel/attribute"
+	"go.opentelemetry.io/otel/propagation"
 
 	"github.com/go-chi/chi/v5"
 )
@@ -39,14 +43,28 @@ func NewWeatherHandler(uc contract.WeatherByCepUsecase) *WeatherHandler {
 // @Failure 500 {string} string "internal server error"
 // @Router /weather/{cep} [get]
 func (h *WeatherHandler) GetWeatherByCep(w http.ResponseWriter, r *http.Request) {
-	cep := chi.URLParam(r, "cep")
+	ctx := r.Context()
+	ctx = otel.GetTextMapPropagator().Extract(ctx, propagation.HeaderCarrier(r.Header))
 
-	weather, err := h.Usecase.GetWeatherByCep(cep)
+	for k, v := range r.Header {
+		fmt.Printf("Header[%q] = %q\n", k, v)
+	}
+
+	tracer := otel.Tracer("ms-weatherzip")
+
+	ctx, span := tracer.Start(ctx, "weatherzip-request")
+	defer span.End()
+
+	cep := chi.URLParam(r, "cep")
+	span.SetAttributes(attribute.String("input.cep", cep))
+
+	weather, err := h.Usecase.GetWeatherByCep(ctx, cep)
 	if err != nil {
 		if errors.Is(err, domain.ErrZipcodeNotFound) {
 			if rr, ok := w.(*middleware.ResponseRecorder); ok {
 				rr.WriteError("Zipcode not found")
 			}
+			span.RecordError(err)
 			http.Error(w, "can not find zipcode", http.StatusNotFound)
 			return
 		}
@@ -55,6 +73,7 @@ func (h *WeatherHandler) GetWeatherByCep(w http.ResponseWriter, r *http.Request)
 			if rr, ok := w.(*middleware.ResponseRecorder); ok {
 				rr.WriteError("Invalid zipcode")
 			}
+			span.RecordError(err)
 			http.Error(w, err.Error(), http.StatusUnprocessableEntity)
 			return
 		}
@@ -62,6 +81,7 @@ func (h *WeatherHandler) GetWeatherByCep(w http.ResponseWriter, r *http.Request)
 		if rr, ok := w.(*middleware.ResponseRecorder); ok {
 			rr.WriteError("Internal server error")
 		}
+		span.RecordError(err)
 		http.Error(w, "internal server error", http.StatusInternalServerError)
 		return
 	}
@@ -73,6 +93,7 @@ func (h *WeatherHandler) GetWeatherByCep(w http.ResponseWriter, r *http.Request)
 		"temp_F": weather.Current.TempF,
 		"temp_K": weather.Current.TempK,
 	}); err != nil {
+		span.RecordError(err)
 		http.Error(w, "internal server error", http.StatusInternalServerError)
 		return
 	}

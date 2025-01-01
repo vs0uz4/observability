@@ -8,6 +8,7 @@ var ViperUnmarshal = viper.Unmarshal
 
 type conf struct {
 	WebServerPort      string `mapstructure:"WEB_SERVER_PORT"`
+	ZipKinUrl          string `mapstructure:"ZIPKIN_URL"`
 	CepAPIUrl          string `mapstructure:"CEP_API_URL"`
 	WeatherAPIUrl      string `mapstructure:"WEATHER_API_URL"`
 	WeatherAPIKey      string `mapstructure:"WEATHER_API_KEY"`

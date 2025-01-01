@@ -1,6 +1,7 @@
 package web
 
 import (
+	"context"
 	"math"
 	"net/http"
 	"net/http/httptest"
@@ -26,7 +27,7 @@ func TestWeatherHandler(t *testing.T) {
 			inputCEP: "123",
 			mockUsecase: func() *mock.MockWeatherByCepUsecase {
 				return &mock.MockWeatherByCepUsecase{
-					GetWeatherByCepFunc: func(cep string) (domain.WeatherResponse, error) {
+					GetWeatherByCepFunc: func(ctx context.Context, cep string) (domain.WeatherResponse, error) {
 						return domain.WeatherResponse{}, domain.ErrInvalidZipcode
 					},
 				}
@@ -40,7 +41,7 @@ func TestWeatherHandler(t *testing.T) {
 			inputCEP: "99999999",
 			mockUsecase: func() *mock.MockWeatherByCepUsecase {
 				return &mock.MockWeatherByCepUsecase{
-					GetWeatherByCepFunc: func(cep string) (domain.WeatherResponse, error) {
+					GetWeatherByCepFunc: func(ctx context.Context, cep string) (domain.WeatherResponse, error) {
 						return domain.WeatherResponse{}, domain.ErrZipcodeNotFound
 					},
 				}
@@ -54,7 +55,7 @@ func TestWeatherHandler(t *testing.T) {
 			inputCEP: "12345678",
 			mockUsecase: func() *mock.MockWeatherByCepUsecase {
 				return &mock.MockWeatherByCepUsecase{
-					GetWeatherByCepFunc: func(cep string) (domain.WeatherResponse, error) {
+					GetWeatherByCepFunc: func(ctx context.Context, cep string) (domain.WeatherResponse, error) {
 						return domain.WeatherResponse{}, domain.ErrWeatherService
 					},
 				}
@@ -68,7 +69,7 @@ func TestWeatherHandler(t *testing.T) {
 			inputCEP: "12345678",
 			mockUsecase: func() *mock.MockWeatherByCepUsecase {
 				return &mock.MockWeatherByCepUsecase{
-					GetWeatherByCepFunc: func(cep string) (domain.WeatherResponse, error) {
+					GetWeatherByCepFunc: func(ctx context.Context, cep string) (domain.WeatherResponse, error) {
 						return domain.WeatherResponse{
 							Location: domain.LocationData{
 								Name: "São Paulo",
@@ -90,7 +91,7 @@ func TestWeatherHandler(t *testing.T) {
 			inputCEP: "12345678",
 			mockUsecase: func() *mock.MockWeatherByCepUsecase {
 				return &mock.MockWeatherByCepUsecase{
-					GetWeatherByCepFunc: func(cep string) (domain.WeatherResponse, error) {
+					GetWeatherByCepFunc: func(ctx context.Context, cep string) (domain.WeatherResponse, error) {
 						return domain.WeatherResponse{
 							Current: domain.CurrentWeather{
 								TempC: math.NaN(),

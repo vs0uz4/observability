@@ -45,3 +45,13 @@ func TestNewFailedToDecodeResponseError(t *testing.T) {
 		t.Errorf("Expected error message %q, got %q", expectedMessage, err.Error())
 	}
 }
+
+func TestNewFailedToMapResponseError(t *testing.T) {
+	originalErr := errors.New("mapping failed due to missing fields")
+	expectedMessage := fmt.Sprintf("failed to map response: %v", originalErr)
+	err := NewFailedToMapResponseError(originalErr)
+
+	if err.Error() != expectedMessage {
+		t.Errorf("Expected error message %q, got %q", expectedMessage, err.Error())
+	}
+}

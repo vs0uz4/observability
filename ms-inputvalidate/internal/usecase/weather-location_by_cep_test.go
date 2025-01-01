@@ -1,6 +1,7 @@
 package usecase
 
 import (
+	"context"
 	"errors"
 	"testing"
 
@@ -60,7 +61,7 @@ func TestGetWeatherLocationByCep(t *testing.T) {
 			inputCep: "99999999",
 			mockWeatherSvc: func() *mock.MockWeatherService {
 				return &mock.MockWeatherService{
-					GetWeatherFunc: func(cep string) (domain.WeatherResponse, error) {
+					GetWeatherFunc: func(ctx context.Context, cep string) (domain.WeatherResponse, error) {
 						return domain.WeatherResponse{}, domain.ErrZipcodeNotFound
 					},
 				}
@@ -72,7 +73,7 @@ func TestGetWeatherLocationByCep(t *testing.T) {
 			inputCep: "12345678",
 			mockWeatherSvc: func() *mock.MockWeatherService {
 				return &mock.MockWeatherService{
-					GetWeatherFunc: func(cep string) (domain.WeatherResponse, error) {
+					GetWeatherFunc: func(ctx context.Context, cep string) (domain.WeatherResponse, error) {
 						return domain.WeatherResponse{}, domain.ErrWeatherService
 					},
 				}
@@ -84,7 +85,7 @@ func TestGetWeatherLocationByCep(t *testing.T) {
 			inputCep: "12345678",
 			mockWeatherSvc: func() *mock.MockWeatherService {
 				return &mock.MockWeatherService{
-					GetWeatherFunc: func(cep string) (domain.WeatherResponse, error) {
+					GetWeatherFunc: func(ctx context.Context, cep string) (domain.WeatherResponse, error) {
 						return domain.WeatherResponse{
 							City:       "City",
 							Celsius:    28.2,
@@ -105,11 +106,13 @@ func TestGetWeatherLocationByCep(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			ctx := context.Background()
+
 			usecase := weatherLocationByCepUsecase{
 				WeatherService: tt.mockWeatherSvc(),
 			}
 
-			result, err := usecase.GetWeatherLocationByCep(tt.inputCep)
+			result, err := usecase.GetWeatherLocationByCep(ctx, tt.inputCep)
 
 			if !errors.Is(err, tt.expectErr) {
 				t.Errorf("Expected error %v, got %v", tt.expectErr, err)

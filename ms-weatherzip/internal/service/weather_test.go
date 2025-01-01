@@ -1,6 +1,7 @@
 package service
 
 import (
+	"context"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -36,8 +37,9 @@ func TestWeatherServiceCreateRequest(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			ctx := context.Background()
 			s := &WeatherService{}
-			_, err := s.GetWeather(tt.inputURL)
+			_, err := s.GetWeather(ctx, tt.inputURL)
 
 			if err == nil || !strings.Contains(err.Error(), tt.expectErr) {
 				t.Errorf("Expected error containing %q, got %v", tt.expectErr, err)
@@ -59,6 +61,8 @@ func TestWeatherServiceExecuteRequest(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			ctx := context.Background()
+
 			mockClient := &mock.MockHTTPClient{
 				DoFunc: func(req *http.Request) (*http.Response, error) {
 					return nil, errors.New("network error")
@@ -72,7 +76,7 @@ func TestWeatherServiceExecuteRequest(t *testing.T) {
 				Language:   weatherServiceLanguage,
 			}
 
-			_, err := service.GetWeather("valid-location")
+			_, err := service.GetWeather(ctx, "valid-location")
 
 			if err == nil || !strings.Contains(err.Error(), tt.expectErr) {
 				t.Errorf("Expected error containing %q, got %q", tt.expectErr, err.Error())
@@ -134,6 +138,8 @@ func TestWeatherServiceDecodeResponse(t *testing.T) {
 }
 
 func TestWeatherServiceDecodeResponseError(t *testing.T) {
+	ctx := context.Background()
+
 	mockClient := &mock.MockHTTPClient{
 		DoFunc: func(req *http.Request) (*http.Response, error) {
 			return &http.Response{
@@ -150,7 +156,7 @@ func TestWeatherServiceDecodeResponseError(t *testing.T) {
 		Language:   weatherServiceLanguage,
 	}
 
-	_, err := service.GetWeather("valid-location")
+	_, err := service.GetWeather(ctx, "valid-location")
 
 	if err == nil || !strings.Contains(err.Error(), "failed to decode response") {
 		t.Errorf("Expected error containing %q, got %q", "failed to decode response", err.Error())
@@ -172,6 +178,8 @@ func TestWeatherServiceBadRequestHandling(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			ctx := context.Background()
+
 			mockClient := &mock.MockHTTPClient{
 				DoFunc: func(req *http.Request) (*http.Response, error) {
 					return &http.Response{
@@ -187,7 +195,7 @@ func TestWeatherServiceBadRequestHandling(t *testing.T) {
 				ApiKey:     weatherServiceApiKey,
 				Language:   weatherServiceLanguage,
 			}
-			_, err := service.GetWeather("invalid-location")
+			_, err := service.GetWeather(ctx, "invalid-location")
 
 			if err == nil || err != domain.ErrUnexpectedBadRequest {
 				t.Errorf("Expected error %v, got %v", domain.ErrUnexpectedBadRequest, err)
@@ -211,6 +219,8 @@ func TestWeatherServiceUnexpectedStatusCode(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			ctx := context.Background()
+
 			mockClient := &mock.MockHTTPClient{
 				DoFunc: func(req *http.Request) (*http.Response, error) {
 					return &http.Response{
@@ -226,7 +236,7 @@ func TestWeatherServiceUnexpectedStatusCode(t *testing.T) {
 				ApiKey:     weatherServiceApiKey,
 				Language:   weatherServiceLanguage,
 			}
-			_, err := service.GetWeather("valid-location")
+			_, err := service.GetWeather(ctx, "valid-location")
 
 			if err == nil || err.Error() != tt.expectErr.Error() {
 				t.Errorf("Expected error %v, got %v", tt.expectErr, err)
@@ -264,6 +274,8 @@ func TestWeatherServiceGetWeatherData(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			ctx := context.Background()
+
 			mockServer := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 				w.WriteHeader(tt.mockStatusCode)
 				if _, err := w.Write([]byte(tt.mockResponse)); err != nil {
@@ -274,7 +286,7 @@ func TestWeatherServiceGetWeatherData(t *testing.T) {
 
 			weatherService := NewWeatherService(mockServer.Client(), mockServer.URL+"?key=%s&q=%s&lang=%s&aqi=no", "APIKEY", "pt")
 			encodedInputLocation := url.QueryEscape(tt.inputLocation)
-			result, err := weatherService.GetWeather(encodedInputLocation)
+			result, err := weatherService.GetWeather(ctx, encodedInputLocation)
 
 			if !errors.Is(err, tt.expectErr) {
 				t.Errorf("Expected error %v, got %v", tt.expectErr, err)
