@@ -1,11 +1,15 @@
 package mock
 
-import "github.com/vs0uz4/observability/ms-weatherzip/internal/domain"
+import (
+	"context"
+
+	"github.com/vs0uz4/observability/ms-weatherzip/internal/domain"
+)
 
 type MockCepService struct {
-	GetLocationFunc func(string) (domain.CepResponse, error)
+	GetLocationFunc func(ctx context.Context, cep string) (domain.CepResponse, error)
 }
 
-func (m *MockCepService) GetLocation(cep string) (domain.CepResponse, error) {
-	return m.GetLocationFunc(cep)
+func (m *MockCepService) GetLocation(ctx context.Context, cep string) (domain.CepResponse, error) {
+	return m.GetLocationFunc(ctx, cep)
 }
