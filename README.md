@@ -240,7 +240,7 @@ Na janela do terminal, você deverá ver uma mensagem parecida com o exemplo aba
 Conforme solicitado, implementamos nos fluxos dos serviços, `traces` de forma que tivéssemos informações detalhadas sobre os fluxos, pudessemos medir o tempo de resposta de cada parte, além de facilitar na maunutenção na hora de debugar. A Interface do Zipkin está disponível no endereço abaixo 
 
 ```plain-text
- `http://localhost:9411/zipkin/`
+ http://localhost:9411/zipkin/
 ```
 
 Ela irá facilitar a consulta e analize dos `traces` implementados. Abaixo seguem algumas telas como evidências do funcionamento dos traces distribuidos.
