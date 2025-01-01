@@ -1,6 +1,7 @@
 package web
 
 import (
+	"context"
 	"fmt"
 	"io"
 	"math"
@@ -28,7 +29,7 @@ func TestGetLocationWeatherByCep(t *testing.T) {
 			inputCEP: "12345678",
 			mockUsecase: func() *mock.MockWeatherLocationByCepUsecase {
 				return &mock.MockWeatherLocationByCepUsecase{
-					GetWeatherLocationByCepFunc: func(cep string) (domain.WeatherResponse, error) {
+					GetWeatherLocationByCepFunc: func(ctx context.Context, cep string) (domain.WeatherResponse, error) {
 						return domain.WeatherResponse{
 							City:       "City",
 							Celsius:    math.NaN(),
@@ -46,7 +47,7 @@ func TestGetLocationWeatherByCep(t *testing.T) {
 			inputCEP: "123",
 			mockUsecase: func() *mock.MockWeatherLocationByCepUsecase {
 				return &mock.MockWeatherLocationByCepUsecase{
-					GetWeatherLocationByCepFunc: func(cep string) (domain.WeatherResponse, error) {
+					GetWeatherLocationByCepFunc: func(ctx context.Context, cep string) (domain.WeatherResponse, error) {
 						return domain.WeatherResponse{}, domain.ErrInvalidZipcode
 					},
 				}
@@ -60,7 +61,7 @@ func TestGetLocationWeatherByCep(t *testing.T) {
 			inputCEP: "99999999",
 			mockUsecase: func() *mock.MockWeatherLocationByCepUsecase {
 				return &mock.MockWeatherLocationByCepUsecase{
-					GetWeatherLocationByCepFunc: func(cep string) (domain.WeatherResponse, error) {
+					GetWeatherLocationByCepFunc: func(ctx context.Context, cep string) (domain.WeatherResponse, error) {
 						return domain.WeatherResponse{}, domain.ErrZipcodeNotFound
 					},
 				}
@@ -74,7 +75,7 @@ func TestGetLocationWeatherByCep(t *testing.T) {
 			inputCEP: "12345678",
 			mockUsecase: func() *mock.MockWeatherLocationByCepUsecase {
 				return &mock.MockWeatherLocationByCepUsecase{
-					GetWeatherLocationByCepFunc: func(cep string) (domain.WeatherResponse, error) {
+					GetWeatherLocationByCepFunc: func(ctx context.Context, cep string) (domain.WeatherResponse, error) {
 						return domain.WeatherResponse{}, domain.ErrCepService
 					},
 				}
@@ -88,7 +89,7 @@ func TestGetLocationWeatherByCep(t *testing.T) {
 			inputCEP: "12345678",
 			mockUsecase: func() *mock.MockWeatherLocationByCepUsecase {
 				return &mock.MockWeatherLocationByCepUsecase{
-					GetWeatherLocationByCepFunc: func(cep string) (domain.WeatherResponse, error) {
+					GetWeatherLocationByCepFunc: func(ctx context.Context, cep string) (domain.WeatherResponse, error) {
 						return domain.WeatherResponse{}, domain.ErrWeatherService
 					},
 				}
@@ -102,7 +103,7 @@ func TestGetLocationWeatherByCep(t *testing.T) {
 			inputCEP: "12345678",
 			mockUsecase: func() *mock.MockWeatherLocationByCepUsecase {
 				return &mock.MockWeatherLocationByCepUsecase{
-					GetWeatherLocationByCepFunc: func(cep string) (domain.WeatherResponse, error) {
+					GetWeatherLocationByCepFunc: func(ctx context.Context, cep string) (domain.WeatherResponse, error) {
 						return domain.WeatherResponse{
 							City:       "City",
 							Celsius:    25,
