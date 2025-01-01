@@ -1,14 +1,19 @@
 package service
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
 	"strings"
+	"time"
 
 	"github.com/vs0uz4/observability/ms-inputvalidate/internal/domain"
 	"github.com/vs0uz4/observability/ms-inputvalidate/internal/service/contract"
+	"go.opentelemetry.io/otel"
+	"go.opentelemetry.io/otel/attribute"
+	"go.opentelemetry.io/otel/propagation"
 )
 
 var _ contract.WeatherService = (*WeatherService)(nil)
@@ -33,26 +38,49 @@ func NewWeatherService(client *http.Client, baseURL string) *WeatherService {
 	}
 }
 
-func (s *WeatherService) GetWeather(cep string) (domain.WeatherResponse, error) {
+func (s *WeatherService) GetWeather(ctx context.Context, cep string) (domain.WeatherResponse, error) {
+	tracer := otel.Tracer("ms-inputvalidate")
+	ctx, span := tracer.Start(ctx, "GetWeather")
+	span.SetAttributes(attribute.String("cep", cep))
+	defer span.End()
+
+	ctx, cancel := context.WithTimeout(ctx, 5000*time.Millisecond)
+	defer cancel()
+
 	var response domain.WeatherResponse
 
 	url := fmt.Sprintf(s.BaseURL, cep)
-	req, err := http.NewRequest(http.MethodGet, url, nil)
+	span.SetAttributes(
+		attribute.String("peer.service", "ms-weatherzip"),
+		attribute.String("http.url", url),
+		attribute.String("http.method", http.MethodGet),
+	)
+
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
 	if err != nil {
+		span.RecordError(err)
 		return response, domain.NewFailedToCreateRequestError(err)
 	}
 
+	otel.GetTextMapPropagator().Inject(ctx, propagation.HeaderCarrier(req.Header))
+
 	res, err := s.HttpClient.Do(req)
 	if err != nil {
+		span.RecordError(err)
 		return response, domain.NewFailedToMakeRequestError(err)
 	}
 	defer res.Body.Close()
 
 	if res.StatusCode != http.StatusOK {
-		return response, s.parseErrorResponse(res)
+		err := s.parseErrorResponse(res)
+
+		span.SetAttributes(attribute.Int("http.status_code", res.StatusCode))
+		span.RecordError(err)
+		return response, err
 	}
 
 	if err := json.NewDecoder(res.Body).Decode(&response); err != nil {
+		span.RecordError(err)
 		return response, domain.NewFailedToDecodeResponseError(err)
 	}
 
