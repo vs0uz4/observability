@@ -1,6 +1,7 @@
 package service
 
 import (
+	"context"
 	"encoding/json"
 	"errors"
 	"io"
@@ -32,8 +33,10 @@ func TestCepServiceCreateRequest(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			ctx := context.Background()
 			s := &CepService{}
-			_, err := s.GetLocation(tt.inputURL)
+
+			_, err := s.GetLocation(ctx, tt.inputURL)
 
 			if err == nil || !strings.Contains(err.Error(), tt.expectErr) {
 				t.Errorf("Expected error containing %q, got %v", tt.expectErr, err)
@@ -55,6 +58,8 @@ func TestCepServiceExecuteRequest(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			ctx := context.Background()
+
 			mockClient := &mock.MockHTTPClient{
 				DoFunc: func(req *http.Request) (*http.Response, error) {
 					return nil, errors.New("network error")
@@ -66,7 +71,7 @@ func TestCepServiceExecuteRequest(t *testing.T) {
 				BaseURL:    cepServiceBaseURL,
 			}
 
-			_, err := service.GetLocation("12345678")
+			_, err := service.GetLocation(ctx, "12345678")
 
 			if err == nil || !strings.Contains(err.Error(), tt.expectErr) {
 				t.Errorf("Expected error containing %q, got %q", tt.expectErr, err.Error())
@@ -90,6 +95,8 @@ func TestCepServiceUnexpectedStatusCode(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			ctx := context.Background()
+
 			mockClient := &mock.MockHTTPClient{
 				DoFunc: func(req *http.Request) (*http.Response, error) {
 					return &http.Response{
@@ -103,7 +110,7 @@ func TestCepServiceUnexpectedStatusCode(t *testing.T) {
 				HttpClient: mockClient,
 				BaseURL:    cepServiceBaseURL,
 			}
-			_, err := service.GetLocation("12345678")
+			_, err := service.GetLocation(ctx, "12345678")
 
 			if err == nil || err.Error() != tt.expectErr.Error() {
 				t.Errorf("Expected error %v, got %v", tt.expectErr, err)
@@ -138,6 +145,7 @@ func TestCepServiceDecodeResponse(t *testing.T) {
 }
 
 func TestCepServiceDecodeResponseError(t *testing.T) {
+	ctx := context.Background()
 	mockClient := &mock.MockHTTPClient{
 		DoFunc: func(req *http.Request) (*http.Response, error) {
 			return &http.Response{
@@ -152,7 +160,7 @@ func TestCepServiceDecodeResponseError(t *testing.T) {
 		BaseURL:    cepServiceBaseURL,
 	}
 
-	_, err := service.GetLocation("12345678")
+	_, err := service.GetLocation(ctx, "12345678")
 
 	if err == nil || !strings.Contains(err.Error(), "failed to decode response") {
 		t.Errorf("Expected error containing %q, got %q", "failed to decode response", err.Error())
@@ -160,6 +168,8 @@ func TestCepServiceDecodeResponseError(t *testing.T) {
 }
 
 func TestCepServicePopulateMapError(t *testing.T) {
+	ctx := context.Background()
+
 	mockClient := &mock.MockHTTPClient{
 		DoFunc: func(req *http.Request) (*http.Response, error) {
 			return &http.Response{
@@ -173,7 +183,7 @@ func TestCepServicePopulateMapError(t *testing.T) {
 		HttpClient: mockClient,
 		BaseURL:    cepServiceBaseURL,
 	}
-	_, err := service.GetLocation("12345678")
+	_, err := service.GetLocation(ctx, "12345678")
 
 	expectedError := "failed to map response"
 	if err == nil || !strings.Contains(err.Error(), expectedError) {
@@ -218,6 +228,8 @@ func TestCepServiceGetCepData(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			ctx := context.Background()
+
 			mockServer := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 				w.WriteHeader(tt.mockStatusCode)
 				if _, err := w.Write([]byte(tt.mockResponse)); err != nil {
@@ -227,7 +239,7 @@ func TestCepServiceGetCepData(t *testing.T) {
 			defer mockServer.Close()
 
 			cepService := NewCepService(mockServer.Client(), mockServer.URL+"/%s")
-			result, err := cepService.GetLocation(tt.inputCep)
+			result, err := cepService.GetLocation(ctx, tt.inputCep)
 
 			if !errors.Is(err, tt.expectErr) {
 				t.Errorf("Expected error %v, got %v", tt.expectErr, err)
