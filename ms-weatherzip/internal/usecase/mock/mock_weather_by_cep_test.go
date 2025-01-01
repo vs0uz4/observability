@@ -1,6 +1,7 @@
 package mock
 
 import (
+	"context"
 	"errors"
 	"testing"
 
@@ -9,7 +10,7 @@ import (
 
 func TestMockWeatherByCepUsecase(t *testing.T) {
 	mockUsecase := &MockWeatherByCepUsecase{
-		GetWeatherByCepFunc: func(cep string) (domain.WeatherResponse, error) {
+		GetWeatherByCepFunc: func(ctx context.Context, cep string) (domain.WeatherResponse, error) {
 			if cep == "12345678" {
 				return domain.WeatherResponse{
 					Current: domain.CurrentWeather{
@@ -21,8 +22,10 @@ func TestMockWeatherByCepUsecase(t *testing.T) {
 		},
 	}
 
+	ctx := context.Background()
+
 	t.Run("Success", func(t *testing.T) {
-		resp, err := mockUsecase.GetWeatherByCep("12345678")
+		resp, err := mockUsecase.GetWeatherByCep(ctx, "12345678")
 		if err != nil {
 			t.Errorf("Unexpected error: %v", err)
 		}
@@ -33,7 +36,7 @@ func TestMockWeatherByCepUsecase(t *testing.T) {
 	})
 
 	t.Run("Failure", func(t *testing.T) {
-		_, err := mockUsecase.GetWeatherByCep("00000000")
+		_, err := mockUsecase.GetWeatherByCep(ctx, "00000000")
 		if err == nil || err.Error() != "invalid cep" {
 			t.Errorf("Expected error 'invalid cep', got %v", err)
 		}
