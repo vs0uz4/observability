@@ -1,7 +1,9 @@
 package main
 
 import (
+	"context"
 	"fmt"
+	"log"
 	"net/http"
 
 	httpSwagger "github.com/swaggo/http-swagger"
@@ -11,6 +13,8 @@ import (
 	"github.com/vs0uz4/observability/ms-inputvalidate/internal/infra/web/webserver"
 	"github.com/vs0uz4/observability/ms-inputvalidate/internal/service"
 	"github.com/vs0uz4/observability/ms-inputvalidate/internal/usecase"
+	"github.com/vs0uz4/observability/pkg/tracing"
+	"go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp"
 )
 
 // @title Input Validation API
@@ -32,7 +36,15 @@ func main() {
 		panic(err)
 	}
 
-	httpClient := &http.Client{}
+	traceProvider, err := tracing.InitTracer("ms-inputvalidate", cfg.ZipKinUrl)
+	if err != nil {
+		log.Fatalf("failed to initialize tracer: %v", err)
+	}
+	defer func() { _ = traceProvider.Shutdown(context.Background()) }()
+
+	httpClient := &http.Client{
+		Transport: otelhttp.NewTransport(http.DefaultTransport),
+	}
 
 	cpuService := service.NewCPUService()
 	memoryService := service.NewMemoryService()
