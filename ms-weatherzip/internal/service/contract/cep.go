@@ -1,7 +1,11 @@
 package contract
 
-import "github.com/vs0uz4/observability/ms-weatherzip/internal/domain"
+import (
+	"context"
+
+	"github.com/vs0uz4/observability/ms-weatherzip/internal/domain"
+)
 
 type CepService interface {
-	GetLocation(cep string) (domain.CepResponse, error)
+	GetLocation(ctx context.Context, cep string) (domain.CepResponse, error)
 }
