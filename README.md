@@ -248,7 +248,7 @@ Muito simples, para você consultar os traces, basta estar com o Zipkin aberto n
 
 ![Zipkin Find a Trace](.doc/zipkin_home.png)
 
-> Os traces que encontram-se com o tempo de duração na cor vermelha, e que possuem o símbolo `(!)` em seus nomes, é porque são de fluxos que ocorreram algum ERRO. Para podermos ver o fluxo mais detalhadamente, onde possamos ver todos os `spans` contidos no trace, basta clicarmos no botão `SHOW` que encontra-se ao lado direito do tempo de duração de cada trace.
+> Os traces que encontram-se com o tempo de duração na cor vermelha, e que possuem o símbolo `(!)` em seus nomes, é porque são de fluxos que ocorreram algum **ERRO**. Para podermos ver o fluxo mais detalhadamente, onde possamos ver todos os `spans` contidos no trace, basta clicarmos no botão `SHOW` que encontra-se ao lado direito do tempo de duração de cada trace.
 
 #### Dependencias
 
@@ -295,7 +295,7 @@ GET /swagger/*      - Documentação da API no Swagger
 #### Consultando Temperaturas
 
 > [!IMPORTANT]
-> Caso qualquer uma das **API's** externas estejam **OFFLINE/INACESSIVEL**, o serviço irá retornar um **CODIGO HTTP 500** com a seguinte **MENSAGEM** `internal server error`. Em alguns momentos detectamos instabilidades no serviço da API ViaCep, caso receba um **ERRO** como deste, valide através do _Zipkin_ que encontra-se disponível no projeto, se o fluxo não foi interrompido por conta de falta de resposta de uma das **API's**. 
+> Caso qualquer uma das **API's** externas estejam **OFFLINE/INACESSIVEL**, o serviço irá retornar um **CODIGO HTTP 500** com a seguinte **MENSAGEM** `internal server error`. Em alguns momentos detectamos instabilidades no serviço da API ViaCep, caso receba um **ERRO** como este, valide através do _Zipkin_ que encontra-se disponível no projeto, se o fluxo foi interrompido por conta de falta de resposta de uma das **API's**, retornando um **ERRO** haverá um `span` contendo informações junto aos `traces`.
 
 
 **Como consultamos a temperatura de uma determinada localidade?** \
