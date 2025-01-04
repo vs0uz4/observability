@@ -254,17 +254,17 @@ Muito simples, para você consultar os traces, basta estar com o Zipkin aberto n
 
 ![Dependencies](.doc/zipking_dependencies.png)
 
-> Nesta tela podemos ver claramente a ligação entre os serviços, onde podemos constatar que o `ms-inputvalidate` (Serviço A) faz uso de `ms-weatherzip` (Serviço B) que por sua vez faz uso de ViaCep.com.br WeatherApi.com.
+> Nesta tela podemos ver claramente a ligação entre os serviços, onde podemos constatar que o `ms-inputvalidate` (**Serviço A**) faz uso de `ms-weatherzip` (**Serviço B**) que por sua vez faz uso de ViaCep.com.br WeatherApi.com.
 
 #### Traces Distribuidos
 
 ![Distributed Traces](.doc/zipkin_distributed_traces.png)
 
-> Nesta tela temos o rastreamento do fluxo de ponta a ponta, onde a requisição iniciou (`ms-inputvalidate`) por onde ela passou e até onde chegou. Aqui claramente temos uma visão de um cenário de sucesso, onde uma requisição percorreu todo o fluxo, foram realizadas as consultas nas duas api's externas (ViaCep e WeatherApi) e o resultado foi retornado ao serviço `ms-inputvalidate`.
+> Nesta tela temos o rastreamento do fluxo de ponta a ponta, onde a requisição iniciou (`ms-inputvalidate`) por onde ela passou e até onde chegou. Aqui claramente temos uma visão de um cenário de sucesso, onde uma requisição percorreu todo o fluxo, foram realizadas as consultas nas duas API's externas (_ViaCep_ e _WeatherApi_) e o resultado foi retornado ao serviço `ms-inputvalidate`.
 
 ![Distributed Traces Error Flow](.doc/zipkin_distributed_traces_error_flow.png)
 
-> Nesta já podemos verificar o fluxo percorrido por uma requisição que falhou. Neste cenário, ao consultarmos um determinado CEP, recebemos o ERRO `internal server error` como resposta porque uma das API's externas ESTAVAM OFFLINE, com isto a requisição que partiu do serviço (`ms-inputvalidate`) chegou até o `ms-weatherzip` passou por todo o fluxo interno até chegar na requisição direcionada para a API ViaCep.com.br, que nos retornou um ERRO por ter estourado time-out após aguardar por 5 segundos por uma resposta. Na imagem destaco os pontos onde podemos ver no Zipkin onde a requisição foi disparada pelo `ms-weatherzip`, o tempo de duração, o erro e inclusive o `cep` utilizado na consulta.
+> Nesta já podemos verificar o fluxo percorrido por uma requisição que falhou. Neste cenário, ao consultarmos um determinado **CEP**, recebemos o **ERRO** `internal server error` como resposta porque uma das **API's** externas **ESTAVAM OFFLINE**, com isto a requisição que partiu do serviço (`ms-inputvalidate`) chegou até o `ms-weatherzip` passou por todo o fluxo interno até chegar na requisição direcionada para a **API** ViaCep.com.br, que nos retornou um **ERRO** por ter estourado `time-out` após aguardar por **5 segundos** por uma resposta. Na imagem destaco os pontos onde podemos ver no _Zipkin_ onde a requisição foi disparada pelo `ms-weatherzip`, o tempo de duração, o erro e inclusive o `cep` utilizado na consulta.
 
 ### Informações da API
 
@@ -295,7 +295,7 @@ GET /swagger/*      - Documentação da API no Swagger
 #### Consultando Temperaturas
 
 > [!IMPORTANT]
-> Caso qualquer uma das API's externas estejam **OFFLINE/INACESSIVEL**, o serviço irá retornar um **CODIGO HTTP 500** com a seguinte **MENSAGEM** `internal server error`. Em alguns momentos detectamos instabilidades no serviço da API ViaCep, caso receba um ERRO como deste, valide através do Zipkin que encontra-se disponível no projeto, se o fluxo não foi interrompido por conta de falta de resposta de uma das API's. 
+> Caso qualquer uma das **API's** externas estejam **OFFLINE/INACESSIVEL**, o serviço irá retornar um **CODIGO HTTP 500** com a seguinte **MENSAGEM** `internal server error`. Em alguns momentos detectamos instabilidades no serviço da API ViaCep, caso receba um **ERRO** como deste, valide através do _Zipkin_ que encontra-se disponível no projeto, se o fluxo não foi interrompido por conta de falta de resposta de uma das **API's**. 
 
 
 **Como consultamos a temperatura de uma determinada localidade?** \
