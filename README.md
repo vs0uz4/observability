@@ -206,8 +206,7 @@ GET /swagger/*      - Documentação da API no Swagger
 #### Consultando Temperaturas
 
 > [!IMPORTANT]
-> Caso qualquer uma das **API's** externas estejam **OFFLINE/INACESSIVEL**, o serviço irá retornar um **CODIGO HTTP 500** com a seguinte **MENSAGEM** `internal server error`. Em alguns momentos detectamos instabilidades no serviço da API ViaCep, caso receba um **ERRO** como este, valide através do _Zipkin_ que encontra-se disponível no projeto, o motivo da interrupção no fluxo, tanto quanto o local onde ocorreu estará disponível através dos `traces`.
-
+> Caso qualquer uma das **API's** externas estejam **OFFLINE/INACESSIVEL**, o serviço irá retornar um **CODIGO HTTP 500** com a seguinte **MENSAGEM** `internal server error`. Em um dos momentos em que estava realizando testes, fiquei sem **ACESSO** a API do serviço ViaCep.com.br, após realizar uma análise descobri que o IP da minha conexão de internet havia sido bloqueado, e então este era o motivo de estar recebendo **ERROS** como este, no meu caso minha conexão de internet é **CLARO** e constatei que vários IP's estão em `blacklists`, portanto, caso ocorra com você ao tentar executar o serviço, verifique o porque do **ERRO** através do _Zipkin_ que encontra-se disponível no projeto, temos uma seção somente falando sobre ele na documentação.
 
 **Como consultamos a temperatura de uma determinada localidade?** \
 Para consultar o clima de uma localidade, basta você consultar a API através da rota `POST /` do serviço `inputvalidate` que o mesmo irá validar o CEP(input) informado, e caso o mesmo seja válido encaminhará a consulta para a API do serviço `weatherzip`. Caso contrário responderá com uma mensagem informando que o CEP informado é inválido. Exemplos:
