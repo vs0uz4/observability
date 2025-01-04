@@ -243,13 +243,28 @@ Conforme solicitado, implementamos nos fluxos dos serviços, `traces` de forma q
  http://localhost:9411/zipkin/
 ```
 
-Ela irá facilitar a consulta e analize dos `traces` implementados. Abaixo seguem algumas telas como evidências do funcionamento dos traces distribuidos.
+Ela irá facilitar a consulta e analize dos `traces/spans` implementados nos fluxos. Abaixo seguem algumas telas como evidências do funcionamento dos traces distribuidos. Mas como consulto os traces?
+Muito simples, para você consultar os traces, basta estar com o Zipkin aberto no endereço apresentado acima, e clicar no botão, na parte superior, direita da tela, escrito `RUN QUERY`, os traces encontrados serão exibidos na tela, assim conforme abaixo
+
+![Zipkin Find a Trace](.doc/zipkin_home.png)
+
+> Os traces que encontram-se com o tempo de duração na cor vermelha, e que possuem o símbolo `(!)` em seus nomes, é porque são de fluxos que ocorreram algum ERRO. Para podermos ver o fluxo mais detalhadamente, onde possamos ver todos os `spans` contidos no trace, basta clicarmos no botão `SHOW` que encontra-se ao lado direito do tempo de duração de cada trace.
 
 #### Dependencias
+
 ![Dependencies](.doc/zipking_dependencies.png)
 
+> Nesta tela podemos ver claramente a ligação entre os serviços, onde podemos constatar que o `ms-inputvalidate` (Serviço A) faz uso de `ms-weatherzip` (Serviço B) que por sua vez faz uso de ViaCep.com.br WeatherApi.com.
+
 #### Traces Distribuidos
+
 ![Distributed Traces](.doc/zipkin_distributed_traces.png)
+
+> Nesta tela temos o rastreamento do fluxo de ponta a ponta, onde a requisição iniciou (`ms-inputvalidate`) por onde ela passou e até onde chegou. Aqui claramente temos uma visão de um cenário de sucesso, onde uma requisição percorreu todo o fluxo, foram realizadas as consultas nas duas api's externas (ViaCep e WeatherApi) e o resultado foi retornado ao serviço `ms-inputvalidate`.
+
+![Distributed Traces Error Flow](.doc/zipkin_distributed_traces_error_flow.png)
+
+> Nesta já podemos verificar o fluxo percorrido por uma requisição que falhou. Neste cenário, ao consultarmos um determinado CEP, recebemos o ERRO `internal server error` como resposta porque uma das API's externas ESTAVAM OFFLINE, com isto a requisição que partiu do serviço (`ms-inputvalidate`) chegou até o `ms-weatherzip` passou por todo o fluxo interno até chegar na requisição direcionada para a API ViaCep.com.br, que nos retornou um ERRO por ter estourado time-out após aguardar por 5 segundos por uma resposta. Na imagem destaco os pontos onde podemos ver no Zipkin onde a requisição foi disparada pelo `ms-weatherzip`, o tempo de duração, o erro e inclusive o `cep` utilizado na consulta.
 
 ### Informações da API
 
@@ -278,6 +293,10 @@ GET /swagger/*      - Documentação da API no Swagger
 ```
 
 #### Consultando Temperaturas
+
+> [!IMPORTANT]
+> Caso qualquer uma das API's externas estejam **OFFLINE/INACESSIVEL**, o serviço irá retornar um **CODIGO HTTP 500** com a seguinte **MENSAGEM** `internal server error`. Em alguns momentos detectamos instabilidades no serviço da API ViaCep, caso receba um ERRO como deste, valide através do Zipkin que encontra-se disponível no projeto, se o fluxo não foi interrompido por conta de falta de resposta de uma das API's. 
+
 
 **Como consultamos a temperatura de uma determinada localidade?** \
 Para consultar o clima de uma localidade, basta você consultar a API através da rota `POST /` do serviço `inputvalidate` que o mesmo irá validar o CEP(input) informado, e caso o mesmo seja válido encaminhará a consulta para a API do serviço `weatherzip`. Caso contrário responderá com uma mensagem informando que o CEP informado é inválido. Exemplos:
