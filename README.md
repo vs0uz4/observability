@@ -94,7 +94,7 @@ Após a implementação dos serviços, adicione a implementação do OTEL + ZIPK
 
 Como sempre gosto de buscar incrementar meus exercícios, aumentando assim as chances de aprender mais, não haveria de ser diferente neste. Todos os incrementos que realizei estão condensados nessa documentação anexada abaixo:
 
-- [ms-inputvalidate](.doc/EXTRA.md)
+- [extras](.doc/EXTRA.md)
 
 ### Executando os Serviços
 
