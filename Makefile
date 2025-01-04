@@ -5,11 +5,16 @@ MS_WEATHERZIP_DIR=ms-weatherzip
 
 .DEFAULT_GOAL := help
 
-.PHONY: generate-docs-inputvalidate generate-docs-weatherzip generate-docs test-inputvalidate test-weatherzip tests
+.PHONY: generate-docs-inputvalidate generate-docs-weatherzip generate-docs test-inputvalidate test-weatherzip setup tests
 
 help: ## Exibe este menu de ajuda
 	@echo "Opções disponíveis no Makefile:"
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
+
+setup: # Efetua o setup dos serviços
+	@echo "Setting up services..."
+	@cd $(MS_INPUTVALIDATE_DIR)/cmd/inputvalidate && cp .env.example .env 
+	@cd $(MS_WEATHERZIP_DIR)/cmd/weatherzip && cp .env.example .env
 
 generate-docs-inputvalidate: ## Gera documentação Swagger para o serviço ms-inputvalidate
 	@echo "Generating Swagger documentation for InputValidate..."
@@ -19,7 +24,7 @@ generate-docs-weatherzip: ## Gera documentação Swagger para o serviço ms-weat
 	@echo "Generating Swagger documentation for WeatherZip..."
 	@cd $(MS_WEATHERZIP_DIR) && swag init -g cmd/weatherzip/main.go --output ./doc/swagger
 
-generate-docs: generate-docs-inputvalidate generate-docs-weatherzip ## Gera documentação Swagger para todos oso serviços
+generate-docs: generate-docs-inputvalidate generate-docs-weatherzip ## Gera documentação Swagger para todos os serviços
 
 test-inputvalidate: ## Executa suite de testes do serviço ms-inputvalidate
 	@echo "Running tests for InputValidate..."
