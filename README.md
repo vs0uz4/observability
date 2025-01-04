@@ -295,7 +295,7 @@ GET /swagger/*      - Documentação da API no Swagger
 #### Consultando Temperaturas
 
 > [!IMPORTANT]
-> Caso qualquer uma das **API's** externas estejam **OFFLINE/INACESSIVEL**, o serviço irá retornar um **CODIGO HTTP 500** com a seguinte **MENSAGEM** `internal server error`. Em alguns momentos detectamos instabilidades no serviço da API ViaCep, caso receba um **ERRO** como este, valide através do _Zipkin_ que encontra-se disponível no projeto, se o fluxo foi interrompido por conta de falta de resposta de uma das **API's**, retornando um **ERRO** haverá um `span` contendo informações junto aos `traces`.
+> Caso qualquer uma das **API's** externas estejam **OFFLINE/INACESSIVEL**, o serviço irá retornar um **CODIGO HTTP 500** com a seguinte **MENSAGEM** `internal server error`. Em alguns momentos detectamos instabilidades no serviço da API ViaCep, caso receba um **ERRO** como este, valide através do _Zipkin_ que encontra-se disponível no projeto, o motivo da interrupção no fluxo, tanto quanto o local onde ocorreu estará disponível através dos `traces`.
 
 
 **Como consultamos a temperatura de uma determinada localidade?** \
