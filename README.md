@@ -114,7 +114,7 @@ Será criado um diretório com o nome de `observability`, entre no diretório do
 ❯ make setup
 ```
 
-Isto fará com que os arquivos `.env` necessarios para a inicialização dos serviços `ms-inputvalidate` e `ms-weatherzip` sejam devidamente criados, posteriormente precisaremos apenas configurar a chave da API do serviço de consulta de clima `api.weatherapi.com`. Para isto, você precisará fazer um registro no site e obter uma `API_KEY`, estando de posse desta `KEY` basta que você vá até a pasta `ms-weatherzip/cmd/weatherzip` e altere o arquivo `.env` que foi criado, trocando a ENV `WEATHER_API_KEY` onde estiver a string `{YOUR_API_KEY}` pela sua `API_KEY`, salve o arquivo e pronto, você já pode inicializar os serviços.
+Isto fará com que os arquivos `.env` necessarios para a inicialização dos serviços `ms-inputvalidate` e `ms-weatherzip` sejam devidamente criados, posteriormente precisaremos apenas configurar a chave da API do serviço de consulta de clima `api.weatherapi.com`. Para isto, você precisará fazer um registro no [site](https://www.weatherapi.com/)  e obter uma `API_KEY`, estando de posse desta `KEY` basta que você vá até a pasta `ms-weatherzip/cmd/weatherzip` e altere o arquivo `.env` que foi criado, trocando a ENV `WEATHER_API_KEY` onde estiver a string `{YOUR_API_KEY}` pela sua `API_KEY`, salve o arquivo e pronto, você já pode inicializar os serviços.
 
 - Inicializando os serviços...
 
