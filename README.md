@@ -106,7 +106,15 @@ Antes de executar os serviços, você deve primeiramente efetuar o `clone` do me
 ❯ git clone https://github.com/vs0uz4/observability.git
 ```
 
-Será criado um diretório com o nome de `observability`, ente no diretório do projeto executando o comando `cd observability` e depois disso inicialize os serviços.
+- Configurando o projeto...
+
+Será criado um diretório com o nome de `observability`, entre no diretório do projeto executando o comando `cd observability` e depois disso efetue o setup inicial dos serviços, para isto basta executar o comando abaixo:
+
+```shel
+❯ make setup
+```
+
+Isto fará com que os arquivos `.env` necessarios para a inicialização dos serviços `ms-inputvalidate` e `ms-weatherzip` sejam devidamente criados, posteriormente precisaremos apenas configurar a chave da API do serviço de consulta de clima `api.weatherapi.com`. Para isto, você precisará fazer um registro no site e obter uma `API_KEY`, estando de posse desta `KEY` basta que você vá até a pasta `ms-weatherzip/cmd/weatherzip` e altere o arquivo `.env` que foi criado, trocando a ENV `WEATHER_API_KEY` onde estiver a string `{YOUR_API_KEY}` pela sua `API_KEY`, salve o arquivo e pronto, você já pode inicializar os serviços.
 
 - Inicializando os serviços...
 
